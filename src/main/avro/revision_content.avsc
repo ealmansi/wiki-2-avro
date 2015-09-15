@@ -1,0 +1,10 @@
+{
+  "namespace":"wikipedia.schemas",
+  "name": "RevisionContent",
+  "type": "record",
+  "fields": [
+    {"name": "page_id", "type": ["null", "long"]},
+    {"name": "revision_id", "type": ["null", "long"]},
+    {"name": "content", "type": ["null", "string"]}
+  ]
+}
