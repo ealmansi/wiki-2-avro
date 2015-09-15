@@ -14,7 +14,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 
 /**
- * Created by emilio on 9/9/15.
+ *
  */
 public class WikiXml2Avro {
   private static final ArgumentParser argParser;

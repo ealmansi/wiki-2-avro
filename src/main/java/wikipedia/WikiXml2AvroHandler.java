@@ -23,7 +23,7 @@ import java.util.Deque;
 import java.util.List;
 
 /**
- * Created by emilio on 9/9/15.
+ *
  */
 public class WikiXml2AvroHandler extends DefaultHandler {
   private static final String ROOT = "";
