@@ -23,7 +23,7 @@ import java.util.Deque;
 import java.util.List;
 
 /**
- *
+ * WikiXml2AvroHandler
  */
 public class WikiXml2AvroHandler extends DefaultHandler {
   private static final String ROOT = "";
@@ -138,6 +138,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void startElementParentMediawiki(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case PAGE:
@@ -150,6 +151,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void endElementParentMediawiki(String uri, String localName, String qName) throws SAXException {
     switch (qName) {
       case PAGE:
@@ -162,9 +164,12 @@ public class WikiXml2AvroHandler extends DefaultHandler {
           throw new SAXException("Appending new page metadata failed.", e);
         }
         break;
+      default:
+        break;
     }
   }
 
+  @SuppressWarnings("unused")
   private void startElementParentPage(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case TITLE:
@@ -181,6 +186,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void endElementParentPage(String uri, String localName, String qName) throws SAXException {
     switch (qName) {
       case TITLE:
@@ -201,6 +207,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void startElementParentRevision(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case ID:
@@ -226,6 +233,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void endElementParentRevision(String uri, String localName, String qName) throws SAXException {
     switch (qName) {
       case ID:
@@ -272,6 +280,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void startElementParentContributor(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case IP:
@@ -284,6 +293,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
+  @SuppressWarnings("unused")
   private void endElementParentContributor(String uri, String localName, String qName) {
     switch (qName) {
       case IP:
@@ -334,11 +344,12 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     }
   }
 
-  private <T> DataFileWriter<T> initializeFileWriter(String metadataOutputFile, Class avroClass, Schema avroSchema) throws IOException {
+  @SuppressWarnings("unchecked")
+  private <T> DataFileWriter<T> initializeFileWriter(String outputFile, Class avroClass, Schema avroSchema) throws IOException {
     DatumWriter<T> datumWriter = new SpecificDatumWriter<>(avroClass);
     DataFileWriter<T> dataFileWriter = new DataFileWriter<>(datumWriter);
     dataFileWriter.setCodec(CodecFactory.bzip2Codec());
-    return dataFileWriter.create(avroSchema, new File(metadataOutputFile));
+    return dataFileWriter.create(avroSchema, new File(outputFile));
   }
 
   private <T> void closeFileWriter(DataFileWriter<T> fileWriter) throws IOException {
@@ -356,26 +367,24 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   }
 
   private void logStartDocument() {
-    logger.info("Process started.");
-    logger.info("Writing page metadata collection to: " + metadataOutputFile);
-    logger.info("Writing revision content collection to: " + contentOutputFile);
+    logger.debug("Process started.");
+    logger.debug("Writing page metadata collection to: " + metadataOutputFile);
+    logger.debug("Writing revision content collection to: " + contentOutputFile);
   }
 
   private void logPageEvent() {
     ++pageNumber;
-    logger.info("Opening page number: " + pageNumber);
+    logger.debug("Opening page number: " + pageNumber);
   }
 
   private void logRevisionEvent() {
     ++revisionNumber;
-    if (revisionNumber % 1000 == 0) { // Log only every one thousand revisions.
-      logger.info("Opening revision number: " + revisionNumber);
-    }
+    logger.debug("Opening revision number: " + revisionNumber);
   }
 
   private void logEndDocument() {
-    logger.info("Process finished successfully.");
-    logger.info("Number of pages: " + pageNumber);
-    logger.info("Number of revisions: " + revisionNumber);
+    logger.debug("Process finished successfully.");
+    logger.debug("Number of pages: " + pageNumber);
+    logger.debug("Number of revisions: " + revisionNumber);
   }
 }
