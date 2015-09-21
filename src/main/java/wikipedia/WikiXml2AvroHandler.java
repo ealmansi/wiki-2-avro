@@ -306,7 +306,11 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   private void startElementParentContributor(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case IP:
+        initializeElementTextBuffer();
+        break;
       case USERNAME:
+        initializeElementTextBuffer();
+        break;
       case ID:
         initializeElementTextBuffer();
         break;
