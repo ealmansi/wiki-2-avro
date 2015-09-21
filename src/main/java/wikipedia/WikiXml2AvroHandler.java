@@ -34,6 +34,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   private static final String TITLE = "title";
   private static final String NS = "ns";
   private static final String ID = "id";
+  private static final String REDIRECT = "redirect";
   private static final String PARENTID = "parentid";
   private static final String TIMESTAMP = "timestamp";
   private static final String MINOR = "minor";
@@ -173,9 +174,16 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   private void startElementParentPage(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case TITLE:
+        initializeElementTextBuffer();
+        break;
       case NS:
+        initializeElementTextBuffer();
+        break;
       case ID:
         initializeElementTextBuffer();
+        break;
+      case REDIRECT:
+        pageMetadata.setRedirect(attributes.getValue(TITLE));
         break;
       case REVISION:
         logRevisionEvent();
@@ -198,6 +206,8 @@ public class WikiXml2AvroHandler extends DefaultHandler {
       case ID:
         pageMetadata.setPageId(Long.valueOf(readElementTextBuffer()));
         break;
+      case REDIRECT:
+        break;
       case REVISION:
         pageMetadataRevisions.add(revisionMetadata);
         revisionMetadata = null;
@@ -211,21 +221,34 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   private void startElementParentRevision(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case ID:
+        initializeElementTextBuffer();
+        break;
       case PARENTID:
+        initializeElementTextBuffer();
+        break;
       case TIMESTAMP:
-      case COMMENT:
-      case MODEL:
-      case FORMAT:
-      case SHA1:
         initializeElementTextBuffer();
         break;
       case CONTRIBUTOR:
         contributor = new Contributor();
         break;
       case MINOR:
+        revisionMetadata.setMinor(true);
+        break;
+      case COMMENT:
+        initializeElementTextBuffer();
+        break;
+      case MODEL:
+        initializeElementTextBuffer();
+        break;
+      case FORMAT:
+        initializeElementTextBuffer();
         break;
       case TEXT:
         revisionContent = new RevisionContent();
+        initializeElementTextBuffer();
+        break;
+      case SHA1:
         initializeElementTextBuffer();
         break;
       default:
@@ -245,6 +268,12 @@ public class WikiXml2AvroHandler extends DefaultHandler {
       case TIMESTAMP:
         revisionMetadata.setTimestamp(readElementTextBuffer());
         break;
+      case CONTRIBUTOR:
+        revisionMetadata.setContributor(contributor);
+        contributor = null;
+        break;
+      case MINOR:
+        break;
       case COMMENT:
         revisionMetadata.setComment(readElementTextBuffer());
         break;
@@ -253,16 +282,6 @@ public class WikiXml2AvroHandler extends DefaultHandler {
         break;
       case FORMAT:
         revisionMetadata.setFormat(readElementTextBuffer());
-        break;
-      case SHA1:
-        revisionMetadata.setSha1(readElementTextBuffer());
-        break;
-      case CONTRIBUTOR:
-        revisionMetadata.setContributor(contributor);
-        contributor = null;
-        break;
-      case MINOR:
-        revisionMetadata.setMinor(true);
         break;
       case TEXT:
         try {
@@ -274,6 +293,9 @@ public class WikiXml2AvroHandler extends DefaultHandler {
         } catch (IOException e) {
           throw new SAXException("Appending new revision content failed.", e);
         }
+        break;
+      case SHA1:
+        revisionMetadata.setSha1(readElementTextBuffer());
         break;
       default:
         break;

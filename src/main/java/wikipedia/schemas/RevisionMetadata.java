@@ -7,7 +7,7 @@ package wikipedia.schemas;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RevisionMetadata\",\"namespace\":\"wikipedia.schemas\",\"fields\":[{\"name\":\"revision_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"parent_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"timestamp\",\"type\":[\"null\",\"string\"]},{\"name\":\"contributor\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Contributor\",\"fields\":[{\"name\":\"ip\",\"type\":[\"null\",\"string\"]},{\"name\":\"username\",\"type\":[\"null\",\"string\"]},{\"name\":\"user_id\",\"type\":[\"null\",\"long\"]}]}]},{\"name\":\"minor\",\"type\":[\"null\",\"boolean\"]},{\"name\":\"comment\",\"type\":[\"null\",\"string\"]},{\"name\":\"model\",\"type\":[\"null\",\"string\"]},{\"name\":\"format\",\"type\":[\"null\",\"string\"]},{\"name\":\"textSize\",\"type\":[\"null\",\"long\"]},{\"name\":\"sha1\",\"type\":[\"null\",\"string\"]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RevisionMetadata\",\"namespace\":\"wikipedia.schemas\",\"fields\":[{\"name\":\"revision_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"parent_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"timestamp\",\"type\":[\"null\",\"string\"]},{\"name\":\"contributor\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Contributor\",\"fields\":[{\"name\":\"ip\",\"type\":[\"null\",\"string\"]},{\"name\":\"username\",\"type\":[\"null\",\"string\"]},{\"name\":\"user_id\",\"type\":[\"null\",\"long\"]}]}]},{\"name\":\"minor\",\"type\":[\"null\",\"boolean\"]},{\"name\":\"comment\",\"type\":[\"null\",\"string\"]},{\"name\":\"model\",\"type\":[\"null\",\"string\"]},{\"name\":\"format\",\"type\":[\"null\",\"string\"]},{\"name\":\"sha1\",\"type\":[\"null\",\"string\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.Long revision_id;
   @Deprecated public java.lang.Long parent_id;
@@ -17,7 +17,6 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
   @Deprecated public java.lang.CharSequence comment;
   @Deprecated public java.lang.CharSequence model;
   @Deprecated public java.lang.CharSequence format;
-  @Deprecated public java.lang.Long textSize;
   @Deprecated public java.lang.CharSequence sha1;
 
   /**
@@ -30,7 +29,7 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
   /**
    * All-args constructor.
    */
-  public RevisionMetadata(java.lang.Long revision_id, java.lang.Long parent_id, java.lang.CharSequence timestamp, wikipedia.schemas.Contributor contributor, java.lang.Boolean minor, java.lang.CharSequence comment, java.lang.CharSequence model, java.lang.CharSequence format, java.lang.Long textSize, java.lang.CharSequence sha1) {
+  public RevisionMetadata(java.lang.Long revision_id, java.lang.Long parent_id, java.lang.CharSequence timestamp, wikipedia.schemas.Contributor contributor, java.lang.Boolean minor, java.lang.CharSequence comment, java.lang.CharSequence model, java.lang.CharSequence format, java.lang.CharSequence sha1) {
     this.revision_id = revision_id;
     this.parent_id = parent_id;
     this.timestamp = timestamp;
@@ -39,7 +38,6 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
     this.comment = comment;
     this.model = model;
     this.format = format;
-    this.textSize = textSize;
     this.sha1 = sha1;
   }
 
@@ -55,8 +53,7 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
     case 5: return comment;
     case 6: return model;
     case 7: return format;
-    case 8: return textSize;
-    case 9: return sha1;
+    case 8: return sha1;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -72,8 +69,7 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
     case 5: comment = (java.lang.CharSequence)value$; break;
     case 6: model = (java.lang.CharSequence)value$; break;
     case 7: format = (java.lang.CharSequence)value$; break;
-    case 8: textSize = (java.lang.Long)value$; break;
-    case 9: sha1 = (java.lang.CharSequence)value$; break;
+    case 8: sha1 = (java.lang.CharSequence)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -199,21 +195,6 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
   }
 
   /**
-   * Gets the value of the 'textSize' field.
-   */
-  public java.lang.Long getTextSize() {
-    return textSize;
-  }
-
-  /**
-   * Sets the value of the 'textSize' field.
-   * @param value the value to set.
-   */
-  public void setTextSize(java.lang.Long value) {
-    this.textSize = value;
-  }
-
-  /**
    * Gets the value of the 'sha1' field.
    */
   public java.lang.CharSequence getSha1() {
@@ -257,7 +238,6 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
     private java.lang.CharSequence comment;
     private java.lang.CharSequence model;
     private java.lang.CharSequence format;
-    private java.lang.Long textSize;
     private java.lang.CharSequence sha1;
 
     /** Creates a new Builder */
@@ -300,13 +280,9 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
         this.format = data().deepCopy(fields()[7].schema(), other.format);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.textSize)) {
-        this.textSize = data().deepCopy(fields()[8].schema(), other.textSize);
+      if (isValidValue(fields()[8], other.sha1)) {
+        this.sha1 = data().deepCopy(fields()[8].schema(), other.sha1);
         fieldSetFlags()[8] = true;
-      }
-      if (isValidValue(fields()[9], other.sha1)) {
-        this.sha1 = data().deepCopy(fields()[9].schema(), other.sha1);
-        fieldSetFlags()[9] = true;
       }
     }
     
@@ -345,13 +321,9 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
         this.format = data().deepCopy(fields()[7].schema(), other.format);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.textSize)) {
-        this.textSize = data().deepCopy(fields()[8].schema(), other.textSize);
+      if (isValidValue(fields()[8], other.sha1)) {
+        this.sha1 = data().deepCopy(fields()[8].schema(), other.sha1);
         fieldSetFlags()[8] = true;
-      }
-      if (isValidValue(fields()[9], other.sha1)) {
-        this.sha1 = data().deepCopy(fields()[9].schema(), other.sha1);
-        fieldSetFlags()[9] = true;
       }
     }
 
@@ -555,31 +527,6 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
       return this;
     }
 
-    /** Gets the value of the 'textSize' field */
-    public java.lang.Long getTextSize() {
-      return textSize;
-    }
-    
-    /** Sets the value of the 'textSize' field */
-    public wikipedia.schemas.RevisionMetadata.Builder setTextSize(java.lang.Long value) {
-      validate(fields()[8], value);
-      this.textSize = value;
-      fieldSetFlags()[8] = true;
-      return this; 
-    }
-    
-    /** Checks whether the 'textSize' field has been set */
-    public boolean hasTextSize() {
-      return fieldSetFlags()[8];
-    }
-    
-    /** Clears the value of the 'textSize' field */
-    public wikipedia.schemas.RevisionMetadata.Builder clearTextSize() {
-      textSize = null;
-      fieldSetFlags()[8] = false;
-      return this;
-    }
-
     /** Gets the value of the 'sha1' field */
     public java.lang.CharSequence getSha1() {
       return sha1;
@@ -587,21 +534,21 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
     
     /** Sets the value of the 'sha1' field */
     public wikipedia.schemas.RevisionMetadata.Builder setSha1(java.lang.CharSequence value) {
-      validate(fields()[9], value);
+      validate(fields()[8], value);
       this.sha1 = value;
-      fieldSetFlags()[9] = true;
+      fieldSetFlags()[8] = true;
       return this; 
     }
     
     /** Checks whether the 'sha1' field has been set */
     public boolean hasSha1() {
-      return fieldSetFlags()[9];
+      return fieldSetFlags()[8];
     }
     
     /** Clears the value of the 'sha1' field */
     public wikipedia.schemas.RevisionMetadata.Builder clearSha1() {
       sha1 = null;
-      fieldSetFlags()[9] = false;
+      fieldSetFlags()[8] = false;
       return this;
     }
 
@@ -617,8 +564,7 @@ public class RevisionMetadata extends org.apache.avro.specific.SpecificRecordBas
         record.comment = fieldSetFlags()[5] ? this.comment : (java.lang.CharSequence) defaultValue(fields()[5]);
         record.model = fieldSetFlags()[6] ? this.model : (java.lang.CharSequence) defaultValue(fields()[6]);
         record.format = fieldSetFlags()[7] ? this.format : (java.lang.CharSequence) defaultValue(fields()[7]);
-        record.textSize = fieldSetFlags()[8] ? this.textSize : (java.lang.Long) defaultValue(fields()[8]);
-        record.sha1 = fieldSetFlags()[9] ? this.sha1 : (java.lang.CharSequence) defaultValue(fields()[9]);
+        record.sha1 = fieldSetFlags()[8] ? this.sha1 : (java.lang.CharSequence) defaultValue(fields()[8]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
