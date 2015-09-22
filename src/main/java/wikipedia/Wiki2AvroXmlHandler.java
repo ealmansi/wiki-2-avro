@@ -1,10 +1,5 @@
 package wikipedia;
 
-import org.apache.avro.Schema;
-import org.apache.avro.file.CodecFactory;
-import org.apache.avro.file.DataFileWriter;
-import org.apache.avro.io.DatumWriter;
-import org.apache.avro.specific.SpecificDatumWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -15,17 +10,16 @@ import wikipedia.schemas.PageMetadata;
 import wikipedia.schemas.RevisionContent;
 import wikipedia.schemas.RevisionMetadata;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- * WikiXml2AvroHandler
+ * Wiki2AvroXmlHandler
  */
-public class WikiXml2AvroHandler extends DefaultHandler {
+public class Wiki2AvroXmlHandler extends DefaultHandler {
   private static final String ROOT = "";
   private static final String MEDIAWIKI = "mediawiki";
   private static final String PAGE = "page";
@@ -46,14 +40,12 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   private static final String IP = "ip";
   private static final String USERNAME = "username";
 
-  private static final Logger logger = LoggerFactory.getLogger(WikiXml2AvroHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(Wiki2AvroXmlHandler.class);
   private long pageNumber = 0;
   private long revisionNumber = 0;
 
-  private final String metadataOutputFile;
-  private final String contentOutputFile;
-  private DataFileWriter<PageMetadata> pageMetadataFileWriter;
-  private DataFileWriter<RevisionContent> revisionContentFileWriter;
+  Wiki2AvroOutputStream<PageMetadata> pageMetadataOutputStream;
+  Wiki2AvroOutputStream<RevisionContent> revisionContentOutputStream;
 
   private Deque<String> elementStack;
   private String parentElement;
@@ -66,33 +58,24 @@ public class WikiXml2AvroHandler extends DefaultHandler {
 
   private StringBuffer elementTextBuffer;
 
-  public WikiXml2AvroHandler(String metadataOutputFile, String contentOutputFile) {
-    this.metadataOutputFile = metadataOutputFile;
-    this.contentOutputFile = contentOutputFile;
+  public Wiki2AvroXmlHandler(Wiki2AvroOutputStream<PageMetadata> pageMetadataOutputStream,
+                             Wiki2AvroOutputStream<RevisionContent> revisionContentOutputStream) {
+    this.pageMetadataOutputStream = pageMetadataOutputStream;
+    this.revisionContentOutputStream = revisionContentOutputStream;
   }
 
   @Override
   public void startDocument() throws SAXException {
     logStartDocument();
-    try {
-      initializeFileWriters();
-    } catch (IOException e) {
-      throw new SAXException("File writer initialization failed.", e);
-    }
     elementStack = new ArrayDeque<>();
     parentElement = ROOT;
   }
 
   @Override
   public void endDocument() throws SAXException {
-    try {
-      closeFileWriter(pageMetadataFileWriter);
-      closeFileWriter(revisionContentFileWriter);
-    } catch (IOException e) {
-      throw new SAXException("File writer closing failed.", e);
-    }
-    elementStack = null;
     logEndDocument();
+    elementStack = null;
+    parentElement = null;
   }
 
   @Override
@@ -145,7 +128,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
       case PAGE:
         logPageEvent();
         pageMetadata = new PageMetadata();
-        pageMetadataRevisions = new ArrayList<>();
+        pageMetadataRevisions = new LinkedList<>();
         break;
       default:
         break;
@@ -159,7 +142,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
         try {
           pageMetadata.setRevisions(pageMetadataRevisions);
           pageMetadataRevisions = null;
-          pageMetadataFileWriter.append(pageMetadata);
+          pageMetadataOutputStream.append(pageMetadata);
           pageMetadata = null;
         } catch (IOException e) {
           throw new SAXException("Appending new page metadata failed.", e);
@@ -288,7 +271,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
           revisionContent.setPageId(pageMetadata.getPageId());
           revisionContent.setRevisionId(revisionMetadata.getRevisionId());
           revisionContent.setContent(readElementTextBuffer());
-          revisionContentFileWriter.append(revisionContent);
+          revisionContentOutputStream.append(revisionContent);
           revisionContent = null;
         } catch (IOException e) {
           throw new SAXException("Appending new revision content failed.", e);
@@ -353,37 +336,6 @@ public class WikiXml2AvroHandler extends DefaultHandler {
     return elementText;
   }
 
-  private void initializeFileWriters() throws IOException {
-    pageMetadataFileWriter = null;
-    revisionContentFileWriter = null;
-    try {
-      pageMetadataFileWriter = initializeFileWriter(metadataOutputFile, PageMetadata.class, PageMetadata.getClassSchema());
-      revisionContentFileWriter = initializeFileWriter(contentOutputFile, RevisionContent.class, RevisionContent.getClassSchema());
-    } catch (IOException e) {
-      try {
-        closeFileWriter(pageMetadataFileWriter);
-        closeFileWriter(revisionContentFileWriter);
-      } catch (IOException oe) {
-        /* Lose this exception in favour of the original one. */
-      }
-      throw e;
-    }
-  }
-
-  @SuppressWarnings("unchecked")
-  private <T> DataFileWriter<T> initializeFileWriter(String outputFile, Class avroClass, Schema avroSchema) throws IOException {
-    DatumWriter<T> datumWriter = new SpecificDatumWriter<>(avroClass);
-    DataFileWriter<T> dataFileWriter = new DataFileWriter<>(datumWriter);
-    dataFileWriter.setCodec(CodecFactory.bzip2Codec());
-    return dataFileWriter.create(avroSchema, new File(outputFile));
-  }
-
-  private <T> void closeFileWriter(DataFileWriter<T> fileWriter) throws IOException {
-    if (fileWriter != null) {
-      fileWriter.close();
-    }
-  }
-
   private void updateParentElement() {
     if (elementStack.isEmpty()) {
       parentElement = ROOT;
@@ -393,9 +345,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   }
 
   private void logStartDocument() {
-    logger.debug("Process started.");
-    logger.debug("Writing page metadata collection to: " + metadataOutputFile);
-    logger.debug("Writing revision content collection to: " + contentOutputFile);
+    logger.debug("Parsing of XML to Avro started.");
   }
 
   private void logPageEvent() {
@@ -409,7 +359,7 @@ public class WikiXml2AvroHandler extends DefaultHandler {
   }
 
   private void logEndDocument() {
-    logger.debug("Process finished successfully.");
+    logger.debug("Parsing of XML to Avro finished successfully.");
     logger.debug("Number of pages: " + pageNumber);
     logger.debug("Number of revisions: " + revisionNumber);
   }

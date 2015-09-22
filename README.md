@@ -1,2 +1,2 @@
-# wiki-xml-2-avro
+# wiki-2-avro
 Tool for parsing Wikipedia XML dumps into Avro format.
