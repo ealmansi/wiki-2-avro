@@ -40,6 +40,8 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   private static final String IP = "ip";
   private static final String USERNAME = "username";
 
+  private static final int PAGE_NAMESPACE_MAIN = 0;
+
   private static final Logger logger = LoggerFactory.getLogger(Wiki2AvroXmlHandler.class);
   private long pageNumber = 0;
   private long revisionNumber = 0;
@@ -55,6 +57,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   private RevisionMetadata revisionMetadata;
   private Contributor contributor;
   private RevisionContent revisionContent;
+  private boolean ignoreCurrentPage;
 
   private StringBuffer elementTextBuffer;
 
@@ -126,9 +129,9 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   private void startElementParentMediawiki(String uri, String localName, String qName, Attributes attributes) {
     switch (qName) {
       case PAGE:
-        logPageEvent();
         pageMetadata = new PageMetadata();
         pageMetadataRevisions = new LinkedList<>();
+        ignoreCurrentPage = false;
         break;
       default:
         break;
@@ -140,9 +143,12 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
     switch (qName) {
       case PAGE:
         try {
-          pageMetadata.setRevisions(pageMetadataRevisions);
+          if (!ignoreCurrentPage) {
+            pageMetadata.setRevisions(pageMetadataRevisions);
+            pageMetadataOutputStream.append(pageMetadata);
+            logPageEvent();
+          }
           pageMetadataRevisions = null;
-          pageMetadataOutputStream.append(pageMetadata);
           pageMetadata = null;
         } catch (IOException e) {
           throw new SAXException("Appending new page metadata failed.", e);
@@ -155,6 +161,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void startElementParentPage(String uri, String localName, String qName, Attributes attributes) {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case TITLE:
         initializeElementTextBuffer();
@@ -169,7 +176,6 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
         pageMetadata.setRedirect(attributes.getValue(TITLE));
         break;
       case REVISION:
-        logRevisionEvent();
         revisionMetadata = new RevisionMetadata();
         break;
       default:
@@ -179,12 +185,14 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void endElementParentPage(String uri, String localName, String qName) throws SAXException {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case TITLE:
         pageMetadata.setTitle(readElementTextBuffer());
         break;
       case NS:
         pageMetadata.setNs(Integer.valueOf(readElementTextBuffer()));
+        ignoreCurrentPage = pageMetadata.getNs() != PAGE_NAMESPACE_MAIN;
         break;
       case ID:
         pageMetadata.setPageId(Long.valueOf(readElementTextBuffer()));
@@ -194,6 +202,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
       case REVISION:
         pageMetadataRevisions.add(revisionMetadata);
         revisionMetadata = null;
+        logRevisionEvent();
         break;
       default:
         break;
@@ -202,6 +211,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void startElementParentRevision(String uri, String localName, String qName, Attributes attributes) {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case ID:
         initializeElementTextBuffer();
@@ -241,6 +251,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void endElementParentRevision(String uri, String localName, String qName) throws SAXException {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case ID:
         revisionMetadata.setRevisionId(Long.valueOf(readElementTextBuffer()));
@@ -287,6 +298,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void startElementParentContributor(String uri, String localName, String qName, Attributes attributes) {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case IP:
         initializeElementTextBuffer();
@@ -304,6 +316,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @SuppressWarnings("unused")
   private void endElementParentContributor(String uri, String localName, String qName) {
+    if (ignoreCurrentPage) return;
     switch (qName) {
       case IP:
         contributor.setIp(readElementTextBuffer());
@@ -321,7 +334,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
 
   @Override
   public void characters(char[] ch, int start, int length) throws SAXException {
-    if (elementTextBuffer != null) {
+    if (elementTextBuffer != null && !ignoreCurrentPage) {
       elementTextBuffer.append(ch, start, length);
     }
   }
@@ -345,7 +358,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   }
 
   private void logStartDocument() {
-    logger.debug("Parsing of XML to Avro started.");
+    logger.info("Parsing of XML to Avro started.");
   }
 
   private void logPageEvent() {
@@ -359,8 +372,8 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   }
 
   private void logEndDocument() {
-    logger.debug("Parsing of XML to Avro finished successfully.");
-    logger.debug("Number of pages: " + pageNumber);
-    logger.debug("Number of revisions: " + revisionNumber);
+    logger.info("Parsing of XML to Avro finished successfully.");
+    logger.info("Number of pages: " + pageNumber);
+    logger.info("Number of revisions: " + revisionNumber);
   }
 }

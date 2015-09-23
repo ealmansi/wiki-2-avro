@@ -60,12 +60,12 @@ public class Wiki2Avro {
         new Wiki2AvroFileOutputStream<>(metadataOutputFile,
                                            PageMetadata.class,
                                            PageMetadata.getClassSchema(),
-                                           CodecFactory.bzip2Codec());
+                                           CodecFactory.snappyCodec());
     Wiki2AvroOutputStream<RevisionContent> contentOutputStream =
         new Wiki2AvroFileOutputStream<>(contentOutputFile,
                                            RevisionContent.class,
                                            RevisionContent.getClassSchema(),
-                                           CodecFactory.bzip2Codec());
+                                           CodecFactory.snappyCodec());
     Wiki2AvroXmlParser.parse(stdinInputSource, metadataOutputStream, contentOutputStream);
 
     // Close streams.
