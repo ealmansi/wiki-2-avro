@@ -22,8 +22,8 @@ public class Wiki2AvroXmlParserTest {
     List<PageMetadata> pages = new ArrayList<>();
     List<RevisionContent> revisions = new ArrayList<>();
     runTest(testFile, pages, revisions);
-    assertEquals(2, pages.size());
-    assertEquals(6, revisions.size());
+    assertEquals(3, pages.size());
+    assertEquals(7, revisions.size());
   }
 
   private void runTest(String testFile, List<PageMetadata> pages, List<RevisionContent> revisions)
