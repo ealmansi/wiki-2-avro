@@ -1,0 +1,30 @@
+#See also
+#See also|different text
+/example
+/example/
+:Category:Help
+Category:Wikipedia tutorials
+Extension:DynamicPageList (Wikimedia)
+Extension:DynamicPageList (Wikimedia)|
+Extension:DynamicPageList (third-party)|
+Fox Broadcasting Company|Fox
+Help
+Help:Contents
+Help:Contents|
+Help:Images#Supported media types for images
+Main Page
+Main Page#Concrete_Paragraph|different text2
+Main Page|different text
+Queen (band)|Queen
+Queen (chess)|Queen
+Sandbox
+Special:MyPage
+Special:MyTalk
+Target page#Target section|display text
+User:John Doe|
+War and Peace
+Wikipedia:Tutorial/Wikipedia_links#Categories|Categories
+media:example.jpg
+media:example.pdf
+wikipedia:GNU General Public License|GPL
+{{TALKPAGENAME}}|Discussion

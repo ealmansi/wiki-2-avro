@@ -4,7 +4,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import wikipedia.schemas.PageMetadata;
-import wikipedia.schemas.RevisionContent;
+import wikipedia.schemas.RevisionWikilinks;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -17,13 +17,13 @@ import java.io.IOException;
 public class Wiki2AvroXmlParser {
   public static void parse(InputSource inputSource,
                            Wiki2AvroOutputStream<PageMetadata> metadataOutputStream,
-                           Wiki2AvroOutputStream<RevisionContent> contentOutputStream)
+                           Wiki2AvroOutputStream<RevisionWikilinks> wikilinksOutputStream)
       throws Wiki2AvroException {
     try {
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser = factory.newSAXParser();
       DefaultHandler wiki2AvroHandler =
-          new Wiki2AvroXmlHandler(metadataOutputStream, contentOutputStream);
+          new Wiki2AvroXmlHandler(metadataOutputStream, wikilinksOutputStream);
       saxParser.parse(inputSource, wiki2AvroHandler);
     } catch (SAXException | ParserConfigurationException | IOException e) {
       throw new Wiki2AvroException("Parsing XML to Avro failed.", e);

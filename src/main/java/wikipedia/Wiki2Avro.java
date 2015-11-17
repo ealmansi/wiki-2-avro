@@ -7,7 +7,7 @@ import net.sourceforge.argparse4j.inf.Namespace;
 import org.apache.avro.file.CodecFactory;
 import org.xml.sax.InputSource;
 import wikipedia.schemas.PageMetadata;
-import wikipedia.schemas.RevisionContent;
+import wikipedia.schemas.RevisionWikilinks;
 
 import java.io.*;
 
@@ -24,27 +24,27 @@ public class Wiki2Avro {
             .description("A tool for parsing Wikipedia XML dumps into Avro format.")
             .epilog("Reads XML from standard input, outputs two files:\n" +
                         "\tfile containing avro collection of page metadata for all pages\n" +
-                        "\tfile containing avro collection of revision content for all revisions");
+                        "\tfile containing avro collection of revision wikilinks for all revisions");
     argParser
         .addArgument("-m", "--metadata_output_file")
         .required(true)
         .type(String.class)
         .help("File where the avro collection of page metadata will be stored.");
     argParser
-        .addArgument("-c", "--content_output_file")
+        .addArgument("-w", "--wikilinks_output_file")
         .required(true)
         .type(String.class)
-        .help("File where the avro collection of revision content will be stored.");
+        .help("File where the avro collection of revision wikilinks will be stored.");
   }
 
   public static void main(String[] args) throws Wiki2AvroException, IOException {
     // Read command-line arguments.
     String metadataOutputFile = null;
-    String contentOutputFile = null;
+    String wikilinksOutputFile = null;
     try {
       Namespace namespace = argParser.parseArgs(args);
       metadataOutputFile = namespace.get("metadata_output_file");
-      contentOutputFile = namespace.get("content_output_file");
+      wikilinksOutputFile = namespace.get("wikilinks_output_file");
     } catch (ArgumentParserException e) {
       argParser.handleError(e);
       System.exit(1);
@@ -61,15 +61,15 @@ public class Wiki2Avro {
                                            PageMetadata.class,
                                            PageMetadata.getClassSchema(),
                                            CodecFactory.snappyCodec());
-    Wiki2AvroOutputStream<RevisionContent> contentOutputStream =
-        new Wiki2AvroFileOutputStream<>(contentOutputFile,
-                                           RevisionContent.class,
-                                           RevisionContent.getClassSchema(),
+    Wiki2AvroOutputStream<RevisionWikilinks> wikilinksOutputStream =
+        new Wiki2AvroFileOutputStream<>(wikilinksOutputFile,
+                                           RevisionWikilinks.class,
+                                           RevisionWikilinks.getClassSchema(),
                                            CodecFactory.snappyCodec());
-    Wiki2AvroXmlParser.parse(stdinInputSource, metadataOutputStream, contentOutputStream);
+    Wiki2AvroXmlParser.parse(stdinInputSource, metadataOutputStream, wikilinksOutputStream);
 
     // Close streams.
     metadataOutputStream.close();
-    contentOutputStream.close();
+    wikilinksOutputStream.close();
   }
 }

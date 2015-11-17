@@ -22,6 +22,7 @@
             {"name": "comment", "type": ["null", "string"]},
             {"name": "model", "type": ["null", "string"]},
             {"name": "format", "type": ["null", "string"]},
+            {"name": "text_size", "type": ["null", "int"]},
             {"name": "sha1", "type": ["null", "string"]}
     ]}}]}
   ]

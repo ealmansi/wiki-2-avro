@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import wikipedia.schemas.Contributor;
 import wikipedia.schemas.PageMetadata;
-import wikipedia.schemas.RevisionContent;
+import wikipedia.schemas.RevisionWikilinks;
 import wikipedia.schemas.RevisionMetadata;
 
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   private long revisionNumber = 0;
 
   Wiki2AvroOutputStream<PageMetadata> pageMetadataOutputStream;
-  Wiki2AvroOutputStream<RevisionContent> revisionContentOutputStream;
+  Wiki2AvroOutputStream<RevisionWikilinks> revisionWikilinksOutputStream;
 
   private Deque<String> elementStack;
   private String parentElement;
@@ -54,14 +54,14 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
   private List<RevisionMetadata> pageMetadataRevisions;
   private RevisionMetadata revisionMetadata;
   private Contributor contributor;
-  private RevisionContent revisionContent;
+  private RevisionWikilinks revisionWikilinks;
 
   private StringBuffer elementTextBuffer;
 
   public Wiki2AvroXmlHandler(Wiki2AvroOutputStream<PageMetadata> pageMetadataOutputStream,
-                             Wiki2AvroOutputStream<RevisionContent> revisionContentOutputStream) {
+                             Wiki2AvroOutputStream<RevisionWikilinks> revisionWikilinksOutputStream) {
     this.pageMetadataOutputStream = pageMetadataOutputStream;
-    this.revisionContentOutputStream = revisionContentOutputStream;
+    this.revisionWikilinksOutputStream = revisionWikilinksOutputStream;
   }
 
   @Override
@@ -228,7 +228,7 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
         initializeElementTextBuffer();
         break;
       case TEXT:
-        revisionContent = new RevisionContent();
+        revisionWikilinks = new RevisionWikilinks();
         initializeElementTextBuffer();
         break;
       case SHA1:
@@ -267,14 +267,17 @@ public class Wiki2AvroXmlHandler extends DefaultHandler {
         revisionMetadata.setFormat(readElementTextBuffer());
         break;
       case TEXT:
+        String text = readElementTextBuffer();
+        revisionMetadata.setTextSize(text.length());
         try {
-          revisionContent.setPageId(pageMetadata.getPageId());
-          revisionContent.setRevisionId(revisionMetadata.getRevisionId());
-          revisionContent.setContent(readElementTextBuffer());
-          revisionContentOutputStream.append(revisionContent);
-          revisionContent = null;
+          revisionWikilinks.setPageId(pageMetadata.getPageId());
+          revisionWikilinks.setRevisionId(revisionMetadata.getRevisionId());
+          revisionWikilinks.setTimestamp(revisionMetadata.getTimestamp());
+          revisionWikilinks.setWikilinks(Wiki2AvroWikilinksExtractor.extractWikilinks(text));
+          revisionWikilinksOutputStream.append(revisionWikilinks);
+          revisionWikilinks = null;
         } catch (IOException e) {
-          throw new SAXException("Appending new revision content failed.", e);
+          throw new SAXException("Appending new revision wikilinks failed.", e);
         }
         break;
       case SHA1:

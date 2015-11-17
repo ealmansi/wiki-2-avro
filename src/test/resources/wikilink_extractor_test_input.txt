@@ -1,0 +1,51 @@
+Samples extracted from here: https://www.mediawiki.org/wiki/Help:Links
+
+[[Main Page]]
+[[Help:Contents]]
+[[Extension:DynamicPageList (Wikimedia)]]
+[[Main Page|different text]]
+[[Main Page#Concrete_Paragraph|different text2]]
+[[Help:Contents|]]
+[[User:John Doe|]]
+[[Extension:DynamicPageList (Wikimedia)|]]
+[[Extension:DynamicPageList (third-party)|]]
+[[Help]]s
+[[Help]]ing
+[[Help]]ers
+[[Help]]almostanylettersyoulikehere
+[[Help]]<nowiki />ful advice
+[[wikipedia:GNU General Public License|GPL]]<nowiki />v3
+#REDIRECT [[Main Page]]
+[[#See also]]
+[[#See also|different text]]
+[[Help:Images#Supported media types for images]]
+[[{{TALKPAGENAME}}|Discussion]]
+[[/example]]
+[[/example/]]
+[[:Category:Help]]
+[[media:example.jpg]]
+[[media:example.pdf]]
+[[Special:MyPage]]
+[[Special:MyTalk]]
+
+Some more from here: https://en.wikipedia.org/wiki/Wikipedia:Tutorial/Wikipedia_links
+
+[[Sandbox]]
+''[[War and Peace]]''
+[[Fox Broadcasting Company|Fox]]
+[[Queen (band)|Queen]] and [[Queen (chess)|Queen]] 
+[[Target page#Target section|display text]]
+[[Wikipedia:Tutorial/Wikipedia_links#Categories|Categories]]
+[[Category:Wikipedia tutorials]].
+
+The following ones should be ignored:
+
+http://mediawiki.org
+[http://mediawiki.org MediaWiki]
+[http://mediawiki.org]
+[http://en.wikipedia.org/wiki/.avi video]
+[http://en.wikipedia.org/wiki/.ogg sound]
+[http://en.wikipedia.org/wiki/.pdf document]
+[//en.wikipedia.org wikipedia]
+[//en.wikipedia.org //en.wikipedia.org]
+

@@ -1,10 +1,11 @@
 {
   "namespace":"wikipedia.schemas",
-  "name": "RevisionContent",
+  "name": "RevisionWikilinks",
   "type": "record",
   "fields": [
     {"name": "page_id", "type": ["null", "long"]},
     {"name": "revision_id", "type": ["null", "long"]},
-    {"name": "content", "type": ["null", "string"]}
+    {"name": "timestamp", "type": ["null", "string"]},
+    {"name": "wikilinks", "type": ["null", {"type": "array", "items": "string"}]}
   ]
 }
