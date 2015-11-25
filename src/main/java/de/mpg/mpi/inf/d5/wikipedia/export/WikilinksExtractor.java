@@ -1,13 +1,13 @@
-package wikipedia;
+package de.mpg.mpi.inf.d5.wikipedia.export;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Wiki2AvroWikilinksExtractor
+ * WikilinksExtractor
  */
-public class Wiki2AvroWikilinksExtractor {
+public class WikilinksExtractor {
   private static final String BRACKET_L = Pattern.quote("[");
   private static final String BRACKET_R = Pattern.quote("]");
   private static final String NOT_BRACKET_R = "[^" + BRACKET_R + "]";

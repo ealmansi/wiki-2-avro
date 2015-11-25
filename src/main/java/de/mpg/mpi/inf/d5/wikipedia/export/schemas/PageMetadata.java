@@ -3,17 +3,16 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package wikipedia.schemas;  
+package de.mpg.mpi.inf.d5.wikipedia.export.schemas;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PageMetadata\",\"namespace\":\"wikipedia.schemas\",\"fields\":[{\"name\":\"title\",\"type\":[\"null\",\"string\"]},{\"name\":\"ns\",\"type\":[\"null\",\"int\"]},{\"name\":\"page_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"redirect\",\"type\":[\"null\",\"string\"]},{\"name\":\"revisions\",\"type\":[\"null\",{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"RevisionMetadata\",\"fields\":[{\"name\":\"revision_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"parent_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"timestamp\",\"type\":[\"null\",\"string\"]},{\"name\":\"contributor\",\"type\":[\"null\",{\"type\":\"record\",\"name\":\"Contributor\",\"fields\":[{\"name\":\"ip\",\"type\":[\"null\",\"string\"]},{\"name\":\"username\",\"type\":[\"null\",\"string\"]},{\"name\":\"user_id\",\"type\":[\"null\",\"long\"]}]}]},{\"name\":\"minor\",\"type\":[\"null\",\"boolean\"]},{\"name\":\"comment\",\"type\":[\"null\",\"string\"]},{\"name\":\"model\",\"type\":[\"null\",\"string\"]},{\"name\":\"format\",\"type\":[\"null\",\"string\"]},{\"name\":\"text_size\",\"type\":[\"null\",\"int\"]},{\"name\":\"sha1\",\"type\":[\"null\",\"string\"]}]}}]}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"PageMetadata\",\"namespace\":\"de.mpg.mpi.inf.d5.wikipedia.export.schemas\",\"fields\":[{\"name\":\"title\",\"type\":[\"null\",\"string\"]},{\"name\":\"namespace\",\"type\":[\"null\",\"int\"]},{\"name\":\"page_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"redirect\",\"type\":[\"null\",\"string\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.CharSequence title;
-  @Deprecated public java.lang.Integer ns;
+  @Deprecated public java.lang.Integer namespace;
   @Deprecated public java.lang.Long page_id;
   @Deprecated public java.lang.CharSequence redirect;
-  @Deprecated public java.util.List<wikipedia.schemas.RevisionMetadata> revisions;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -25,12 +24,11 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
   /**
    * All-args constructor.
    */
-  public PageMetadata(java.lang.CharSequence title, java.lang.Integer ns, java.lang.Long page_id, java.lang.CharSequence redirect, java.util.List<wikipedia.schemas.RevisionMetadata> revisions) {
+  public PageMetadata(java.lang.CharSequence title, java.lang.Integer namespace, java.lang.Long page_id, java.lang.CharSequence redirect) {
     this.title = title;
-    this.ns = ns;
+    this.namespace = namespace;
     this.page_id = page_id;
     this.redirect = redirect;
-    this.revisions = revisions;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -38,10 +36,9 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return title;
-    case 1: return ns;
+    case 1: return namespace;
     case 2: return page_id;
     case 3: return redirect;
-    case 4: return revisions;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -50,10 +47,9 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: title = (java.lang.CharSequence)value$; break;
-    case 1: ns = (java.lang.Integer)value$; break;
+    case 1: namespace = (java.lang.Integer)value$; break;
     case 2: page_id = (java.lang.Long)value$; break;
     case 3: redirect = (java.lang.CharSequence)value$; break;
-    case 4: revisions = (java.util.List<wikipedia.schemas.RevisionMetadata>)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -74,18 +70,18 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
   }
 
   /**
-   * Gets the value of the 'ns' field.
+   * Gets the value of the 'namespace' field.
    */
-  public java.lang.Integer getNs() {
-    return ns;
+  public java.lang.Integer getNamespace() {
+    return namespace;
   }
 
   /**
-   * Sets the value of the 'ns' field.
+   * Sets the value of the 'namespace' field.
    * @param value the value to set.
    */
-  public void setNs(java.lang.Integer value) {
-    this.ns = value;
+  public void setNamespace(java.lang.Integer value) {
+    this.namespace = value;
   }
 
   /**
@@ -118,34 +114,19 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     this.redirect = value;
   }
 
-  /**
-   * Gets the value of the 'revisions' field.
-   */
-  public java.util.List<wikipedia.schemas.RevisionMetadata> getRevisions() {
-    return revisions;
-  }
-
-  /**
-   * Sets the value of the 'revisions' field.
-   * @param value the value to set.
-   */
-  public void setRevisions(java.util.List<wikipedia.schemas.RevisionMetadata> value) {
-    this.revisions = value;
-  }
-
   /** Creates a new PageMetadata RecordBuilder */
-  public static wikipedia.schemas.PageMetadata.Builder newBuilder() {
-    return new wikipedia.schemas.PageMetadata.Builder();
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder newBuilder() {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder();
   }
   
   /** Creates a new PageMetadata RecordBuilder by copying an existing Builder */
-  public static wikipedia.schemas.PageMetadata.Builder newBuilder(wikipedia.schemas.PageMetadata.Builder other) {
-    return new wikipedia.schemas.PageMetadata.Builder(other);
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder newBuilder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder other) {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder(other);
   }
   
   /** Creates a new PageMetadata RecordBuilder by copying an existing PageMetadata instance */
-  public static wikipedia.schemas.PageMetadata.Builder newBuilder(wikipedia.schemas.PageMetadata other) {
-    return new wikipedia.schemas.PageMetadata.Builder(other);
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder newBuilder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata other) {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder(other);
   }
   
   /**
@@ -155,25 +136,24 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     implements org.apache.avro.data.RecordBuilder<PageMetadata> {
 
     private java.lang.CharSequence title;
-    private java.lang.Integer ns;
+    private java.lang.Integer namespace;
     private java.lang.Long page_id;
     private java.lang.CharSequence redirect;
-    private java.util.List<wikipedia.schemas.RevisionMetadata> revisions;
 
     /** Creates a new Builder */
     private Builder() {
-      super(wikipedia.schemas.PageMetadata.SCHEMA$);
+      super(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(wikipedia.schemas.PageMetadata.Builder other) {
+    private Builder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.title)) {
         this.title = data().deepCopy(fields()[0].schema(), other.title);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.ns)) {
-        this.ns = data().deepCopy(fields()[1].schema(), other.ns);
+      if (isValidValue(fields()[1], other.namespace)) {
+        this.namespace = data().deepCopy(fields()[1].schema(), other.namespace);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.page_id)) {
@@ -183,22 +163,18 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
       if (isValidValue(fields()[3], other.redirect)) {
         this.redirect = data().deepCopy(fields()[3].schema(), other.redirect);
         fieldSetFlags()[3] = true;
-      }
-      if (isValidValue(fields()[4], other.revisions)) {
-        this.revisions = data().deepCopy(fields()[4].schema(), other.revisions);
-        fieldSetFlags()[4] = true;
       }
     }
     
     /** Creates a Builder by copying an existing PageMetadata instance */
-    private Builder(wikipedia.schemas.PageMetadata other) {
-            super(wikipedia.schemas.PageMetadata.SCHEMA$);
+    private Builder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata other) {
+            super(de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.SCHEMA$);
       if (isValidValue(fields()[0], other.title)) {
         this.title = data().deepCopy(fields()[0].schema(), other.title);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.ns)) {
-        this.ns = data().deepCopy(fields()[1].schema(), other.ns);
+      if (isValidValue(fields()[1], other.namespace)) {
+        this.namespace = data().deepCopy(fields()[1].schema(), other.namespace);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.page_id)) {
@@ -208,10 +184,6 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
       if (isValidValue(fields()[3], other.redirect)) {
         this.redirect = data().deepCopy(fields()[3].schema(), other.redirect);
         fieldSetFlags()[3] = true;
-      }
-      if (isValidValue(fields()[4], other.revisions)) {
-        this.revisions = data().deepCopy(fields()[4].schema(), other.revisions);
-        fieldSetFlags()[4] = true;
       }
     }
 
@@ -221,7 +193,7 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Sets the value of the 'title' field */
-    public wikipedia.schemas.PageMetadata.Builder setTitle(java.lang.CharSequence value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder setTitle(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.title = value;
       fieldSetFlags()[0] = true;
@@ -234,33 +206,33 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Clears the value of the 'title' field */
-    public wikipedia.schemas.PageMetadata.Builder clearTitle() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder clearTitle() {
       title = null;
       fieldSetFlags()[0] = false;
       return this;
     }
 
-    /** Gets the value of the 'ns' field */
-    public java.lang.Integer getNs() {
-      return ns;
+    /** Gets the value of the 'namespace' field */
+    public java.lang.Integer getNamespace() {
+      return namespace;
     }
     
-    /** Sets the value of the 'ns' field */
-    public wikipedia.schemas.PageMetadata.Builder setNs(java.lang.Integer value) {
+    /** Sets the value of the 'namespace' field */
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder setNamespace(java.lang.Integer value) {
       validate(fields()[1], value);
-      this.ns = value;
+      this.namespace = value;
       fieldSetFlags()[1] = true;
       return this; 
     }
     
-    /** Checks whether the 'ns' field has been set */
-    public boolean hasNs() {
+    /** Checks whether the 'namespace' field has been set */
+    public boolean hasNamespace() {
       return fieldSetFlags()[1];
     }
     
-    /** Clears the value of the 'ns' field */
-    public wikipedia.schemas.PageMetadata.Builder clearNs() {
-      ns = null;
+    /** Clears the value of the 'namespace' field */
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder clearNamespace() {
+      namespace = null;
       fieldSetFlags()[1] = false;
       return this;
     }
@@ -271,7 +243,7 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Sets the value of the 'page_id' field */
-    public wikipedia.schemas.PageMetadata.Builder setPageId(java.lang.Long value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder setPageId(java.lang.Long value) {
       validate(fields()[2], value);
       this.page_id = value;
       fieldSetFlags()[2] = true;
@@ -284,7 +256,7 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Clears the value of the 'page_id' field */
-    public wikipedia.schemas.PageMetadata.Builder clearPageId() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder clearPageId() {
       page_id = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -296,7 +268,7 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Sets the value of the 'redirect' field */
-    public wikipedia.schemas.PageMetadata.Builder setRedirect(java.lang.CharSequence value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder setRedirect(java.lang.CharSequence value) {
       validate(fields()[3], value);
       this.redirect = value;
       fieldSetFlags()[3] = true;
@@ -309,34 +281,9 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
     }
     
     /** Clears the value of the 'redirect' field */
-    public wikipedia.schemas.PageMetadata.Builder clearRedirect() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata.Builder clearRedirect() {
       redirect = null;
       fieldSetFlags()[3] = false;
-      return this;
-    }
-
-    /** Gets the value of the 'revisions' field */
-    public java.util.List<wikipedia.schemas.RevisionMetadata> getRevisions() {
-      return revisions;
-    }
-    
-    /** Sets the value of the 'revisions' field */
-    public wikipedia.schemas.PageMetadata.Builder setRevisions(java.util.List<wikipedia.schemas.RevisionMetadata> value) {
-      validate(fields()[4], value);
-      this.revisions = value;
-      fieldSetFlags()[4] = true;
-      return this; 
-    }
-    
-    /** Checks whether the 'revisions' field has been set */
-    public boolean hasRevisions() {
-      return fieldSetFlags()[4];
-    }
-    
-    /** Clears the value of the 'revisions' field */
-    public wikipedia.schemas.PageMetadata.Builder clearRevisions() {
-      revisions = null;
-      fieldSetFlags()[4] = false;
       return this;
     }
 
@@ -345,10 +292,9 @@ public class PageMetadata extends org.apache.avro.specific.SpecificRecordBase im
       try {
         PageMetadata record = new PageMetadata();
         record.title = fieldSetFlags()[0] ? this.title : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.ns = fieldSetFlags()[1] ? this.ns : (java.lang.Integer) defaultValue(fields()[1]);
+        record.namespace = fieldSetFlags()[1] ? this.namespace : (java.lang.Integer) defaultValue(fields()[1]);
         record.page_id = fieldSetFlags()[2] ? this.page_id : (java.lang.Long) defaultValue(fields()[2]);
         record.redirect = fieldSetFlags()[3] ? this.redirect : (java.lang.CharSequence) defaultValue(fields()[3]);
-        record.revisions = fieldSetFlags()[4] ? this.revisions : (java.util.List<wikipedia.schemas.RevisionMetadata>) defaultValue(fields()[4]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

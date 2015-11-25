@@ -1,5 +1,6 @@
-package wikipedia;
+package de.mpg.mpi.inf.d5.wikipedia.export;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -11,23 +12,21 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * Wiki2AvroWikilinksExtractorTest
+ * WikilinksExtractorTest
  */
-public class Wiki2AvroWikilinksExtractorTest {
+public class WikilinksExtractorTest {
   @Test
-  public void test1() throws Wiki2AvroException, IOException {
+  public void testWikilinksExtractor() throws WikipediaExportException, IOException {
     String testInputFile = "/wikilink_extractor_test_input.txt";
     String testOutputFile = "/wikilink_extractor_test_output.txt";
-    assertEquals(getExpectedWikilinks(testOutputFile),
-                    getActualWikilinks(testInputFile));
+    Assert.assertEquals(getExpectedWikilinks(testOutputFile),
+                           getActualWikilinks(testInputFile));
   }
 
   private List<CharSequence> getActualWikilinks(String testInputFile) throws IOException {
     String content = readTestFile(testInputFile);
-    return Wiki2AvroWikilinksExtractor.extractWikilinks(content);
+    return WikilinksExtractor.extractWikilinks(content);
   }
 
   private List<CharSequence> getExpectedWikilinks(String testOutputFile) throws IOException {

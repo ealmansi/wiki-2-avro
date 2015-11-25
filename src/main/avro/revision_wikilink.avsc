@@ -1,11 +1,11 @@
 {
-  "namespace":"wikipedia.schemas",
-  "name": "RevisionWikilinks",
+  "namespace":"de.mpg.mpi.inf.d5.wikipedia.export.schemas",
+  "name": "RevisionWikilink",
   "type": "record",
   "fields": [
     {"name": "page_id", "type": ["null", "long"]},
     {"name": "revision_id", "type": ["null", "long"]},
     {"name": "timestamp", "type": ["null", "string"]},
-    {"name": "wikilinks", "type": ["null", {"type": "array", "items": "string"}]}
+    {"name": "wikilink", "type": ["null", "string"]}
   ]
 }

@@ -3,32 +3,32 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package wikipedia.schemas;  
+package de.mpg.mpi.inf.d5.wikipedia.export.schemas;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
-public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RevisionWikilinks\",\"namespace\":\"wikipedia.schemas\",\"fields\":[{\"name\":\"page_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"revision_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"timestamp\",\"type\":[\"null\",\"string\"]},{\"name\":\"wikilinks\",\"type\":[\"null\",{\"type\":\"array\",\"items\":\"string\"}]}]}");
+public class RevisionWikilink extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"RevisionWikilink\",\"namespace\":\"de.mpg.mpi.inf.d5.wikipedia.export.schemas\",\"fields\":[{\"name\":\"page_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"revision_id\",\"type\":[\"null\",\"long\"]},{\"name\":\"timestamp\",\"type\":[\"null\",\"string\"]},{\"name\":\"wikilink\",\"type\":[\"null\",\"string\"]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.Long page_id;
   @Deprecated public java.lang.Long revision_id;
   @Deprecated public java.lang.CharSequence timestamp;
-  @Deprecated public java.util.List<java.lang.CharSequence> wikilinks;
+  @Deprecated public java.lang.CharSequence wikilink;
 
   /**
    * Default constructor.  Note that this does not initialize fields
    * to their default values from the schema.  If that is desired then
    * one should use <code>newBuilder()</code>. 
    */
-  public RevisionWikilinks() {}
+  public RevisionWikilink() {}
 
   /**
    * All-args constructor.
    */
-  public RevisionWikilinks(java.lang.Long page_id, java.lang.Long revision_id, java.lang.CharSequence timestamp, java.util.List<java.lang.CharSequence> wikilinks) {
+  public RevisionWikilink(java.lang.Long page_id, java.lang.Long revision_id, java.lang.CharSequence timestamp, java.lang.CharSequence wikilink) {
     this.page_id = page_id;
     this.revision_id = revision_id;
     this.timestamp = timestamp;
-    this.wikilinks = wikilinks;
+    this.wikilink = wikilink;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -38,7 +38,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     case 0: return page_id;
     case 1: return revision_id;
     case 2: return timestamp;
-    case 3: return wikilinks;
+    case 3: return wikilink;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -49,7 +49,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     case 0: page_id = (java.lang.Long)value$; break;
     case 1: revision_id = (java.lang.Long)value$; break;
     case 2: timestamp = (java.lang.CharSequence)value$; break;
-    case 3: wikilinks = (java.util.List<java.lang.CharSequence>)value$; break;
+    case 3: wikilink = (java.lang.CharSequence)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -100,53 +100,53 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
   }
 
   /**
-   * Gets the value of the 'wikilinks' field.
+   * Gets the value of the 'wikilink' field.
    */
-  public java.util.List<java.lang.CharSequence> getWikilinks() {
-    return wikilinks;
+  public java.lang.CharSequence getWikilink() {
+    return wikilink;
   }
 
   /**
-   * Sets the value of the 'wikilinks' field.
+   * Sets the value of the 'wikilink' field.
    * @param value the value to set.
    */
-  public void setWikilinks(java.util.List<java.lang.CharSequence> value) {
-    this.wikilinks = value;
+  public void setWikilink(java.lang.CharSequence value) {
+    this.wikilink = value;
   }
 
-  /** Creates a new RevisionWikilinks RecordBuilder */
-  public static wikipedia.schemas.RevisionWikilinks.Builder newBuilder() {
-    return new wikipedia.schemas.RevisionWikilinks.Builder();
+  /** Creates a new RevisionWikilink RecordBuilder */
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder newBuilder() {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder();
   }
   
-  /** Creates a new RevisionWikilinks RecordBuilder by copying an existing Builder */
-  public static wikipedia.schemas.RevisionWikilinks.Builder newBuilder(wikipedia.schemas.RevisionWikilinks.Builder other) {
-    return new wikipedia.schemas.RevisionWikilinks.Builder(other);
+  /** Creates a new RevisionWikilink RecordBuilder by copying an existing Builder */
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder newBuilder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder other) {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder(other);
   }
   
-  /** Creates a new RevisionWikilinks RecordBuilder by copying an existing RevisionWikilinks instance */
-  public static wikipedia.schemas.RevisionWikilinks.Builder newBuilder(wikipedia.schemas.RevisionWikilinks other) {
-    return new wikipedia.schemas.RevisionWikilinks.Builder(other);
+  /** Creates a new RevisionWikilink RecordBuilder by copying an existing RevisionWikilink instance */
+  public static de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder newBuilder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink other) {
+    return new de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder(other);
   }
   
   /**
-   * RecordBuilder for RevisionWikilinks instances.
+   * RecordBuilder for RevisionWikilink instances.
    */
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<RevisionWikilinks>
-    implements org.apache.avro.data.RecordBuilder<RevisionWikilinks> {
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<RevisionWikilink>
+    implements org.apache.avro.data.RecordBuilder<RevisionWikilink> {
 
     private java.lang.Long page_id;
     private java.lang.Long revision_id;
     private java.lang.CharSequence timestamp;
-    private java.util.List<java.lang.CharSequence> wikilinks;
+    private java.lang.CharSequence wikilink;
 
     /** Creates a new Builder */
     private Builder() {
-      super(wikipedia.schemas.RevisionWikilinks.SCHEMA$);
+      super(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(wikipedia.schemas.RevisionWikilinks.Builder other) {
+    private Builder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.page_id)) {
         this.page_id = data().deepCopy(fields()[0].schema(), other.page_id);
@@ -160,15 +160,15 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
         this.timestamp = data().deepCopy(fields()[2].schema(), other.timestamp);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.wikilinks)) {
-        this.wikilinks = data().deepCopy(fields()[3].schema(), other.wikilinks);
+      if (isValidValue(fields()[3], other.wikilink)) {
+        this.wikilink = data().deepCopy(fields()[3].schema(), other.wikilink);
         fieldSetFlags()[3] = true;
       }
     }
     
-    /** Creates a Builder by copying an existing RevisionWikilinks instance */
-    private Builder(wikipedia.schemas.RevisionWikilinks other) {
-            super(wikipedia.schemas.RevisionWikilinks.SCHEMA$);
+    /** Creates a Builder by copying an existing RevisionWikilink instance */
+    private Builder(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink other) {
+            super(de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.SCHEMA$);
       if (isValidValue(fields()[0], other.page_id)) {
         this.page_id = data().deepCopy(fields()[0].schema(), other.page_id);
         fieldSetFlags()[0] = true;
@@ -181,8 +181,8 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
         this.timestamp = data().deepCopy(fields()[2].schema(), other.timestamp);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.wikilinks)) {
-        this.wikilinks = data().deepCopy(fields()[3].schema(), other.wikilinks);
+      if (isValidValue(fields()[3], other.wikilink)) {
+        this.wikilink = data().deepCopy(fields()[3].schema(), other.wikilink);
         fieldSetFlags()[3] = true;
       }
     }
@@ -193,7 +193,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Sets the value of the 'page_id' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder setPageId(java.lang.Long value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder setPageId(java.lang.Long value) {
       validate(fields()[0], value);
       this.page_id = value;
       fieldSetFlags()[0] = true;
@@ -206,7 +206,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Clears the value of the 'page_id' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder clearPageId() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder clearPageId() {
       page_id = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -218,7 +218,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Sets the value of the 'revision_id' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder setRevisionId(java.lang.Long value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder setRevisionId(java.lang.Long value) {
       validate(fields()[1], value);
       this.revision_id = value;
       fieldSetFlags()[1] = true;
@@ -231,7 +231,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Clears the value of the 'revision_id' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder clearRevisionId() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder clearRevisionId() {
       revision_id = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -243,7 +243,7 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Sets the value of the 'timestamp' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder setTimestamp(java.lang.CharSequence value) {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder setTimestamp(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.timestamp = value;
       fieldSetFlags()[2] = true;
@@ -256,45 +256,45 @@ public class RevisionWikilinks extends org.apache.avro.specific.SpecificRecordBa
     }
     
     /** Clears the value of the 'timestamp' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder clearTimestamp() {
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder clearTimestamp() {
       timestamp = null;
       fieldSetFlags()[2] = false;
       return this;
     }
 
-    /** Gets the value of the 'wikilinks' field */
-    public java.util.List<java.lang.CharSequence> getWikilinks() {
-      return wikilinks;
+    /** Gets the value of the 'wikilink' field */
+    public java.lang.CharSequence getWikilink() {
+      return wikilink;
     }
     
-    /** Sets the value of the 'wikilinks' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder setWikilinks(java.util.List<java.lang.CharSequence> value) {
+    /** Sets the value of the 'wikilink' field */
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder setWikilink(java.lang.CharSequence value) {
       validate(fields()[3], value);
-      this.wikilinks = value;
+      this.wikilink = value;
       fieldSetFlags()[3] = true;
       return this; 
     }
     
-    /** Checks whether the 'wikilinks' field has been set */
-    public boolean hasWikilinks() {
+    /** Checks whether the 'wikilink' field has been set */
+    public boolean hasWikilink() {
       return fieldSetFlags()[3];
     }
     
-    /** Clears the value of the 'wikilinks' field */
-    public wikipedia.schemas.RevisionWikilinks.Builder clearWikilinks() {
-      wikilinks = null;
+    /** Clears the value of the 'wikilink' field */
+    public de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink.Builder clearWikilink() {
+      wikilink = null;
       fieldSetFlags()[3] = false;
       return this;
     }
 
     @Override
-    public RevisionWikilinks build() {
+    public RevisionWikilink build() {
       try {
-        RevisionWikilinks record = new RevisionWikilinks();
+        RevisionWikilink record = new RevisionWikilink();
         record.page_id = fieldSetFlags()[0] ? this.page_id : (java.lang.Long) defaultValue(fields()[0]);
         record.revision_id = fieldSetFlags()[1] ? this.revision_id : (java.lang.Long) defaultValue(fields()[1]);
         record.timestamp = fieldSetFlags()[2] ? this.timestamp : (java.lang.CharSequence) defaultValue(fields()[2]);
-        record.wikilinks = fieldSetFlags()[3] ? this.wikilinks : (java.util.List<java.lang.CharSequence>) defaultValue(fields()[3]);
+        record.wikilink = fieldSetFlags()[3] ? this.wikilink : (java.lang.CharSequence) defaultValue(fields()[3]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

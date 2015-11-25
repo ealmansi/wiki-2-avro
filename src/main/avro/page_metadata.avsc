@@ -1,29 +1,11 @@
 {
-  "namespace":"wikipedia.schemas",
+  "namespace":"de.mpg.mpi.inf.d5.wikipedia.export.schemas",
   "name": "PageMetadata",
   "type": "record",
   "fields": [
     {"name": "title", "type": ["null", "string"]},
-    {"name": "ns", "type": ["null", "int"]},
+    {"name": "namespace", "type": ["null", "int"]},
     {"name": "page_id", "type": ["null", "long"]},
-    {"name": "redirect", "type": ["null", "string"]},
-    {"name": "revisions", "type": ["null", {"type": "array", "items": {
-        "name": "RevisionMetadata", "type": "record", "fields": [
-            {"name": "revision_id", "type": ["null", "long"]},
-            {"name": "parent_id", "type": ["null", "long"]},
-            {"name": "timestamp", "type": ["null", "string"]},
-            {"name": "contributor", "type": ["null", {
-                "name": "Contributor", "type": "record", "fields": [
-                    {"name": "ip", "type": ["null", "string"]},
-                    {"name": "username", "type": ["null", "string"]},
-                    {"name": "user_id", "type": ["null", "long"]}
-            ]}]},
-            {"name": "minor", "type": ["null", "boolean"]},
-            {"name": "comment", "type": ["null", "string"]},
-            {"name": "model", "type": ["null", "string"]},
-            {"name": "format", "type": ["null", "string"]},
-            {"name": "text_size", "type": ["null", "int"]},
-            {"name": "sha1", "type": ["null", "string"]}
-    ]}}]}
+    {"name": "redirect", "type": ["null", "string"]}
   ]
 }

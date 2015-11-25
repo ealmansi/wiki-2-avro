@@ -16,3 +16,7 @@ hs_err_pid*
 
 # build output
 target/
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
