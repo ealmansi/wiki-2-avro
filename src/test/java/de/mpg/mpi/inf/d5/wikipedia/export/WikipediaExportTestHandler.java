@@ -32,12 +32,15 @@ public class WikipediaExportTestHandler extends WikipediaExportHandler {
   }
 
   @Override
-  protected void onRevisionMetadata(RevisionMetadata revisionMetadata) throws WikipediaExportException {
+  protected void onRevisionMetadata(PageMetadata pageMetadata,
+                                      RevisionMetadata revisionMetadata) throws WikipediaExportException {
     revisionMetadataList.add(revisionMetadata);
   }
 
   @Override
-  protected void onRevisionWikilink(RevisionWikilink revisionWikilink) throws WikipediaExportException {
+  protected void onRevisionWikilink(PageMetadata pageMetadata,
+                                      RevisionMetadata revisionMetadata,
+                                      RevisionWikilink revisionWikilink) throws WikipediaExportException {
     revisionWikilinksList.add(revisionWikilink);
   }
 

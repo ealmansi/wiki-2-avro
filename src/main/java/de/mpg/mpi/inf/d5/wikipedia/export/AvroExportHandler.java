@@ -80,7 +80,9 @@ public class AvroExportHandler extends WikipediaExportHandler {
   @Override
   protected void onPageMetadata(PageMetadata pageMetadata) throws WikipediaExportException {
     try {
-      pageMetadataDataFileWriter.append(pageMetadata);
+      if (pageMetadata.namespace == 0) {
+        pageMetadataDataFileWriter.append(pageMetadata);
+      }
     } catch (IOException e) {
       throw new WikipediaExportException("Appending page metadata failed.", e);
     }
@@ -90,9 +92,12 @@ public class AvroExportHandler extends WikipediaExportHandler {
    * onRevisionMetadata
    */
   @Override
-  protected void onRevisionMetadata(RevisionMetadata revisionMetadata) throws WikipediaExportException {
+  protected void onRevisionMetadata(PageMetadata pageMetadata,
+                                      RevisionMetadata revisionMetadata) throws WikipediaExportException {
     try {
-      revisionMetadataDataFileWriter.append(revisionMetadata);
+      if (pageMetadata.namespace == 0) {
+        revisionMetadataDataFileWriter.append(revisionMetadata);
+      }
     } catch (IOException e) {
       throw new WikipediaExportException("Appending revision metadata failed.", e);
     }
@@ -102,18 +107,22 @@ public class AvroExportHandler extends WikipediaExportHandler {
    * onRevisionWikilink
    */
   @Override
-  protected void onRevisionWikilink(RevisionWikilink revisionWikilink) throws WikipediaExportException {
+  protected void onRevisionWikilink(PageMetadata pageMetadata,
+                                      RevisionMetadata revisionMetadata,
+                                      RevisionWikilink revisionWikilink) throws WikipediaExportException {
     try {
-      revisionWikilinksDataFileWriter.append(revisionWikilink);
+      if (pageMetadata.namespace == 0) {
+        revisionWikilinksDataFileWriter.append(revisionWikilink);
+      }
     } catch (IOException e) {
       throw new WikipediaExportException("Appending revision wikilinks failed.", e);
     }
   }
 
   private <T> DataFileWriter<T> getDataFileWriter(String outputFile,
-                                                  Class<T> avroClass,
-                                                  Schema avroSchema,
-                                                  CodecFactory codec) throws IOException {
+                                                    Class<T> avroClass,
+                                                    Schema avroSchema,
+                                                    CodecFactory codec) throws IOException {
     DatumWriter<T> datumWriter = new SpecificDatumWriter<>(avroClass);
     DataFileWriter<T> dataFileWriter = new DataFileWriter<>(datumWriter);
     dataFileWriter.setCodec(codec);

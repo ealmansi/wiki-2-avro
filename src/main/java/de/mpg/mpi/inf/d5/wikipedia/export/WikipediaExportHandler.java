@@ -37,13 +37,16 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   /**
    * onRevisionMetadata
    */
-  protected abstract void onRevisionMetadata(RevisionMetadata revisionMetadata)
+  protected abstract void onRevisionMetadata(PageMetadata pageMetadata,
+                                              RevisionMetadata revisionMetadata)
       throws WikipediaExportException;
 
   /**
    * onRevisionWikilink
    */
-  protected abstract void onRevisionWikilink(RevisionWikilink revisionWikilink)
+  protected abstract void onRevisionWikilink(PageMetadata pageMetadata,
+                                              RevisionMetadata revisionMetadata,
+                                              RevisionWikilink revisionWikilink)
       throws WikipediaExportException;
 
   /**
@@ -220,7 +223,7 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
     }
     void endElement(String uri, String localName, String qName)
         throws WikipediaExportException {
-      onRevisionMetadata(revisionMetadata);
+      onRevisionMetadata(pageMetadata, revisionMetadata);
       revisionMetadata = null;
       logRevisionEvent();
     }
@@ -273,10 +276,11 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
       revisionMetadata.setTextSize(value.length());
       List<CharSequence> wikilinks = WikilinksExtractor.extractWikilinks(value);
       for (CharSequence wikilink : wikilinks) {
-        onRevisionWikilink(new RevisionWikilink(pageMetadata.getPageId(),
-                                                   revisionMetadata.getRevisionId(),
-                                                   revisionMetadata.getTimestamp(),
-                                                   wikilink));
+        onRevisionWikilink(pageMetadata, revisionMetadata,
+            new RevisionWikilink(pageMetadata.getPageId(),
+                                  revisionMetadata.getRevisionId(),
+                                  revisionMetadata.getTimestamp(),
+                                  wikilink));
       }
     }
   };
