@@ -1,0 +1,9 @@
+{
+  "namespace":"de.mpg.mpi.inf.d5.wikipedia.export.schemas",
+  "name": "WikipediaRevisionText",
+  "type": "record",
+  "fields": [
+    {"name": "revision_id", "type": ["null", "long"]},
+    {"name": "text", "type": ["null", "string"]}
+  ]
+}

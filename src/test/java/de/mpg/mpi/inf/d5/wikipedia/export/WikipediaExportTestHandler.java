@@ -1,8 +1,8 @@
 package de.mpg.mpi.inf.d5.wikipedia.export;
 
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata;
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionMetadata;
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaPageMetadata;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaRevisionMetadata;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaRevisionText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,48 +11,63 @@ import java.util.List;
  * WikipediaExportTestHandler
  */
 public class WikipediaExportTestHandler extends WikipediaExportHandler {
-  private List<PageMetadata> pageMetadataList = null;
-  private List<RevisionMetadata> revisionMetadataList = null;
-  private List<RevisionWikilink> revisionWikilinksList = null;
+  private List<WikipediaPageMetadata> pageMetadataList = null;
+  private List<WikipediaRevisionMetadata> revisionMetadataList = null;
+  private List<WikipediaRevisionText> revisionTextsList = null;
 
   @Override
-  protected void onStartDocument() throws WikipediaExportException {
+  protected void startExport() throws WikipediaExportException {
     pageMetadataList = new ArrayList<>();
     revisionMetadataList = new ArrayList<>();
-    revisionWikilinksList = new ArrayList<>();
+    revisionTextsList = new ArrayList<>();
   }
 
   @Override
-  protected void onEndDocument() throws WikipediaExportException {
+  protected void endExport() throws WikipediaExportException {
   }
 
   @Override
-  protected void onPageMetadata(PageMetadata pageMetadata) throws WikipediaExportException {
+  protected void startPageMetadata(WikipediaPageMetadata pageMetadata)
+      throws WikipediaExportException {
     pageMetadataList.add(pageMetadata);
   }
 
   @Override
-  protected void onRevisionMetadata(PageMetadata pageMetadata,
-                                      RevisionMetadata revisionMetadata) throws WikipediaExportException {
+  protected void endPageMetadata()
+      throws WikipediaExportException {
+  }
+
+  @Override
+  protected void startRevisionMetadata(WikipediaRevisionMetadata revisionMetadata)
+      throws WikipediaExportException {
     revisionMetadataList.add(revisionMetadata);
   }
 
   @Override
-  protected void onRevisionWikilink(PageMetadata pageMetadata,
-                                      RevisionMetadata revisionMetadata,
-                                      RevisionWikilink revisionWikilink) throws WikipediaExportException {
-    revisionWikilinksList.add(revisionWikilink);
+  protected void endRevisionMetadata()
+      throws WikipediaExportException {
   }
 
-  public List<PageMetadata> getPageMetadataList() {
+  @Override
+  protected void startRevisionText(WikipediaRevisionText revisionText)
+      throws WikipediaExportException {
+    revisionTextsList.add(revisionText);
+  }
+
+  @Override
+  protected void endRevisionText()
+      throws WikipediaExportException {
+  }
+
+  public List<WikipediaPageMetadata> getPageMetadataList() {
     return pageMetadataList;
   }
 
-  public List<RevisionMetadata> getRevisionMetadataList() {
+  public List<WikipediaRevisionMetadata> getRevisionMetadataList() {
     return revisionMetadataList;
   }
 
-  public List<RevisionWikilink> getRevisionWikilinksList() {
-    return revisionWikilinksList;
+  public List<WikipediaRevisionText> getRevisionTextsList() {
+    return revisionTextsList;
   }
 }

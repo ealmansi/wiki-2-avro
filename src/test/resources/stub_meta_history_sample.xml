@@ -1,0 +1,290 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="srn">
+  <siteinfo>
+    <sitename>Wikipedia</sitename>
+    <dbname>srnwiki</dbname>
+    <base>https://srn.wikipedia.org/wiki/Fesipapira</base>
+    <generator>MediaWiki 1.27.0-wmf.22</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Spesyal</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Taki</namespace>
+      <namespace key="2" case="first-letter">Masyin</namespace>
+      <namespace key="3" case="first-letter">Taki fu masyin</namespace>
+      <namespace key="4" case="first-letter">Wikipedia</namespace>
+      <namespace key="5" case="first-letter">Taki fu Wikipedia</namespace>
+      <namespace key="6" case="first-letter">Gefre</namespace>
+      <namespace key="7" case="first-letter">Taki fu gefre</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">Taki fu MediaWiki</namespace>
+      <namespace key="10" case="first-letter">Ankra</namespace>
+      <namespace key="11" case="first-letter">Taki fu ankra</namespace>
+      <namespace key="12" case="first-letter">Yepi</namespace>
+      <namespace key="13" case="first-letter">Taki fu yepi</namespace>
+      <namespace key="14" case="first-letter">Guru</namespace>
+      <namespace key="15" case="first-letter">Taki fu guru</namespace>
+      <namespace key="828" case="first-letter">Module</namespace>
+      <namespace key="829" case="first-letter">Overleg module</namespace>
+      <namespace key="2300" case="first-letter">Gadget</namespace>
+      <namespace key="2301" case="first-letter">Gadget talk</namespace>
+      <namespace key="2302" case="case-sensitive">Gadget definition</namespace>
+      <namespace key="2303" case="case-sensitive">Gadget definition talk</namespace>
+      <namespace key="2600" case="first-letter">Onderwerp</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Masyin:Az1568</title>
+    <ns>2</ns>
+    <id>2</id>
+    <revision>
+      <id>2</id>
+      <timestamp>2008-05-26T08:26:26Z</timestamp>
+      <contributor>
+        <username>Az1568</username>
+        <id>1</id>
+      </contributor>
+      <comment>Nyon papira: [[m:user:Az1568]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="2" bytes="17" />
+      <sha1>qju6nbqhms79vx191sd42661nwwzo6d</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Taki fu masyin:Az1568</title>
+    <ns>3</ns>
+    <id>3</id>
+    <revision>
+      <id>3</id>
+      <timestamp>2008-05-26T08:26:30Z</timestamp>
+      <contributor>
+        <username>Az1568</username>
+        <id>1</id>
+      </contributor>
+      <comment>Nyon papira: [[m:user talk:Az1568]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="3" bytes="22" />
+      <sha1>l85ndlj2prqbnhotr1twn0befo5otp8</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:DerHexer</title>
+    <ns>2</ns>
+    <id>4</id>
+    <revision>
+      <id>4</id>
+      <timestamp>2008-05-26T08:46:00Z</timestamp>
+      <contributor>
+        <username>DerHexer</username>
+        <id>2</id>
+      </contributor>
+      <minor/>
+      <comment>new</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="4" bytes="1633" />
+      <sha1>l3p7ikjig8c20sqfqew7qkm1vmya26s</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:GerardM</title>
+    <ns>2</ns>
+    <id>5</id>
+    <revision>
+      <id>5</id>
+      <timestamp>2008-05-26T09:21:40Z</timestamp>
+      <contributor>
+        <username>GerardM</username>
+        <id>3</id>
+      </contributor>
+      <comment>Nyon papira: *[[meta:user:GerardM]] *[[betawiki:user:GerardM]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="5" bytes="49" />
+      <sha1>6z5py0wfcrhyy2upkdhipf5irf25eu0</sha1>
+    </revision>
+    <revision>
+      <id>5</id>
+      <timestamp>2008-05-26T09:21:40Z</timestamp>
+      <contributor>
+        <username>GerardM</username>
+        <id>3</id>
+      </contributor>
+      <comment>Nyon papira: *[[meta:user:GerardM]] *[[betawiki:user:GerardM]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="5" bytes="49" />
+      <sha1>6z5py0wfcrhyy2upkdhipf5irf25eu0</sha1>
+    </revision>
+    <revision>
+      <id>5</id>
+      <timestamp>2008-05-26T09:21:40Z</timestamp>
+      <contributor>
+        <username>GerardM</username>
+        <id>3</id>
+      </contributor>
+      <comment>Nyon papira: *[[meta:user:GerardM]] *[[betawiki:user:GerardM]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="5" bytes="49" />
+      <sha1>6z5py0wfcrhyy2upkdhipf5irf25eu0</sha1>
+    </revision>
+    <revision>
+      <id>5</id>
+      <timestamp>2008-05-26T09:21:40Z</timestamp>
+      <contributor>
+        <username>GerardM</username>
+        <id>3</id>
+      </contributor>
+      <comment>Nyon papira: *[[meta:user:GerardM]] *[[betawiki:user:GerardM]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="5" bytes="49" />
+      <sha1>6z5py0wfcrhyy2upkdhipf5irf25eu0</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:MelancholieBot</title>
+    <ns>2</ns>
+    <id>6</id>
+    <revision>
+      <id>6</id>
+      <timestamp>2008-05-26T10:33:10Z</timestamp>
+      <contributor>
+        <username>MelancholieBot</username>
+        <id>6</id>
+      </contributor>
+      <minor/>
+      <comment>request</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="6" bytes="728" />
+      <sha1>rpuymh716o2m741ntg1zynt6dabgdgx</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:Meno25</title>
+    <ns>2</ns>
+    <id>7</id>
+    <revision>
+      <id>8</id>
+      <timestamp>2008-05-26T12:51:00Z</timestamp>
+      <contributor>
+        <username>Meno25</username>
+        <id>8</id>
+      </contributor>
+      <comment>Creating</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="8" bytes="77" />
+      <sha1>aprby976f4dor8q9cqtptmxbq1yx83b</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:Korg</title>
+    <ns>2</ns>
+    <id>8</id>
+    <revision>
+      <id>9</id>
+      <timestamp>2008-05-26T13:52:50Z</timestamp>
+      <contributor>
+        <username>Korg</username>
+        <id>9</id>
+      </contributor>
+      <comment>Nyon papira: [[m:User:Korg]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="9" bytes="15" />
+      <sha1>094wtog13qlbuajq5mye7rptj97kkfn</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:Korg/monobook.js</title>
+    <ns>2</ns>
+    <id>9</id>
+    <revision>
+      <id>10</id>
+      <timestamp>2008-05-26T13:57:56Z</timestamp>
+      <contributor>
+        <username>Korg</username>
+        <id>9</id>
+      </contributor>
+      <model>javascript</model>
+      <format>text/javascript</format>
+      <text id="10" bytes="140" />
+      <sha1>b6ucahkooqsve931i2zyz7x5oymu81v</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Masyin:Adambro</title>
+    <ns>2</ns>
+    <id>10</id>
+    <revision>
+      <id>11</id>
+      <timestamp>2008-05-26T14:53:41Z</timestamp>
+      <contributor>
+        <username>Adambro</username>
+        <id>12</id>
+      </contributor>
+      <comment>Nyon papira: [[meta:User:Adambro]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="11" bytes="21" />
+      <sha1>ez9ycc6s9gfke3epzjfo61o6h8hw6vd</sha1>
+    </revision>
+    <revision>
+      <id>11</id>
+      <timestamp>2008-05-26T14:53:41Z</timestamp>
+      <contributor>
+        <username>Adambro</username>
+        <id>12</id>
+      </contributor>
+      <comment>Nyon papira: [[meta:User:Adambro]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="11" bytes="21" />
+      <sha1>ez9ycc6s9gfke3epzjfo61o6h8hw6vd</sha1>
+    </revision>
+    <revision>
+      <id>11</id>
+      <timestamp>2008-05-26T14:53:41Z</timestamp>
+      <contributor>
+        <username>Adambro</username>
+        <id>12</id>
+      </contributor>
+      <comment>Nyon papira: [[meta:User:Adambro]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="11" bytes="21" />
+      <sha1>ez9ycc6s9gfke3epzjfo61o6h8hw6vd</sha1>
+    </revision>
+    <revision>
+      <id>11</id>
+      <timestamp>2008-05-26T14:53:41Z</timestamp>
+      <contributor>
+        <username>Adambro</username>
+        <id>12</id>
+      </contributor>
+      <comment>Nyon papira: [[meta:User:Adambro]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="11" bytes="21" />
+      <sha1>ez9ycc6s9gfke3epzjfo61o6h8hw6vd</sha1>
+    </revision>
+    <revision>
+      <id>11</id>
+      <timestamp>2008-05-26T14:53:41Z</timestamp>
+      <contributor>
+        <username>Adambro</username>
+        <id>12</id>
+      </contributor>
+      <comment>Nyon papira: [[meta:User:Adambro]]</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text id="11" bytes="21" />
+      <sha1>ez9ycc6s9gfke3epzjfo61o6h8hw6vd</sha1>
+    </revision>
+  </page>
+</mediawiki>

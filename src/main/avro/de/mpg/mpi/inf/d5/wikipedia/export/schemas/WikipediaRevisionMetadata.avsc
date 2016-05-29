@@ -1,20 +1,19 @@
 {
   "namespace":"de.mpg.mpi.inf.d5.wikipedia.export.schemas",
-  "name": "RevisionMetadata",
+  "name": "WikipediaRevisionMetadata",
   "type": "record",
   "fields": [
-    {"name": "page_id", "type": ["null", "long"]},
-    {"name": "revision_id", "type": ["null", "long"]},
+    {"name": "id", "type": ["null", "long"]},
     {"name": "parent_id", "type": ["null", "long"]},
     {"name": "timestamp", "type": ["null", "string"]},
     {"name": "contributor_ip", "type": ["null", "string"]},
-    {"name": "contributor_user_id", "type": ["null", "long"]},
     {"name": "contributor_username", "type": ["null", "string"]},
+    {"name": "contributor_id", "type": ["null", "long"]},
     {"name": "minor", "type": ["null", "boolean"]},
     {"name": "comment", "type": ["null", "string"]},
     {"name": "model", "type": ["null", "string"]},
     {"name": "format", "type": ["null", "string"]},
-    {"name": "text_size", "type": ["null", "int"]},
+    {"name": "text_size", "type": ["null", "long"]},
     {"name": "sha1", "type": ["null", "string"]}
   ]
 }

@@ -1,11 +1,11 @@
 {
   "namespace":"de.mpg.mpi.inf.d5.wikipedia.export.schemas",
-  "name": "PageMetadata",
+  "name": "WikipediaPageMetadata",
   "type": "record",
   "fields": [
     {"name": "title", "type": ["null", "string"]},
-    {"name": "namespace", "type": ["null", "int"]},
-    {"name": "page_id", "type": ["null", "long"]},
+    {"name": "ns", "type": ["null", "int"]},
+    {"name": "id", "type": ["null", "long"]},
     {"name": "redirect", "type": ["null", "string"]}
   ]
 }

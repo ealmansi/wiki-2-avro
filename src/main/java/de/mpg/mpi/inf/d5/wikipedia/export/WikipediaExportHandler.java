@@ -2,9 +2,9 @@ package de.mpg.mpi.inf.d5.wikipedia.export;
 
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.PageMetadata;
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionMetadata;
-import de.mpg.mpi.inf.d5.wikipedia.export.schemas.RevisionWikilink;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaPageMetadata;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaRevisionMetadata;
+import de.mpg.mpi.inf.d5.wikipedia.export.schemas.WikipediaRevisionText;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -19,34 +19,49 @@ import java.util.List;
  */
 public abstract class WikipediaExportHandler extends DefaultHandler {
   /**
-   * onStartDocument
+   * startExport
    */
-  protected abstract void onStartDocument() throws WikipediaExportException;
+  protected abstract void startExport() throws WikipediaExportException;
 
   /**
-   * onEndDocument
+   * endExport
    */
-  protected abstract void onEndDocument() throws WikipediaExportException;
+  protected abstract void endExport() throws WikipediaExportException;
 
   /**
-   * onPageMetadata
+   * startPageMetadata
    */
-  protected abstract void onPageMetadata(PageMetadata pageMetadata)
+  protected abstract void startPageMetadata(WikipediaPageMetadata pageMetadata)
       throws WikipediaExportException;
 
   /**
-   * onRevisionMetadata
+   * endPageMetadata
    */
-  protected abstract void onRevisionMetadata(PageMetadata pageMetadata,
-                                              RevisionMetadata revisionMetadata)
+  protected abstract void endPageMetadata()
       throws WikipediaExportException;
 
   /**
-   * onRevisionWikilink
+   * startRevisionMetadata
    */
-  protected abstract void onRevisionWikilink(PageMetadata pageMetadata,
-                                              RevisionMetadata revisionMetadata,
-                                              RevisionWikilink revisionWikilink)
+  protected abstract void startRevisionMetadata(WikipediaRevisionMetadata revisionMetadata)
+      throws WikipediaExportException;
+
+  /**
+   * endRevisionMetadata
+   */
+  protected abstract void endRevisionMetadata()
+      throws WikipediaExportException;
+
+  /**
+   * startRevisionText
+   */
+  protected abstract void startRevisionText(WikipediaRevisionText revisionText)
+      throws WikipediaExportException;
+
+  /**
+   * endRevisionText
+   */
+  protected abstract void endRevisionText()
       throws WikipediaExportException;
 
   /**
@@ -104,8 +119,9 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
    * State kept during parsing.
    */
   private ElementStack elementStack;
-  private PageMetadata pageMetadata;
-  private RevisionMetadata revisionMetadata;
+  private WikipediaPageMetadata pageMetadata;
+  private WikipediaRevisionMetadata revisionMetadata;
+  private WikipediaRevisionText revisionText;
   private StringBuffer elementTextBuffer;
 
   /**
@@ -177,13 +193,14 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   private final ElementHandler PAGE_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
-      pageMetadata = new PageMetadata();
+      pageMetadata = new WikipediaPageMetadata();
+      startPageMetadata(pageMetadata);
     }
     void endElement(String uri, String localName, String qName)
         throws WikipediaExportException {
-      onPageMetadata(pageMetadata);
+      endPageMetadata();
       pageMetadata = null;
-      logPageEvent();
+      logPageComplete();
     }
   };
   
@@ -195,20 +212,23 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   
   private final ElementHandler PAGE_NAMESPACE_HANDLER = new IntegerElementHandler() {
     void endElement(Integer value) throws WikipediaExportException {
-      pageMetadata.setNamespace(value);
+      pageMetadata.setNs(value);
     }
   };
   
   private final ElementHandler PAGE_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
-      pageMetadata.setPageId(value);
+      pageMetadata.setId(value);
     }
   };
   
   private final ElementHandler PAGE_REDIRECT_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
-      pageMetadata.setRedirect(attributes.getValue(TITLE));
+      String titleAttribute = attributes.getValue("title");
+      if (titleAttribute != null) {
+        pageMetadata.setRedirect(titleAttribute);
+      }
     }
     void endElement(String uri, String localName, String qName)
         throws WikipediaExportException {
@@ -218,20 +238,20 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   private final ElementHandler REVISION_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
-      revisionMetadata = new RevisionMetadata();
-      revisionMetadata.setPageId(pageMetadata.getPageId());
+      revisionMetadata = new WikipediaRevisionMetadata();
+      startRevisionMetadata(revisionMetadata);
     }
     void endElement(String uri, String localName, String qName)
         throws WikipediaExportException {
-      onRevisionMetadata(pageMetadata, revisionMetadata);
+      endRevisionMetadata();
       revisionMetadata = null;
-      logRevisionEvent();
+      logRevisionComplete();
     }
   };
   
   private final ElementHandler REVISION_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
-      revisionMetadata.setRevisionId(value);
+      revisionMetadata.setId(value);
     }
   };
   
@@ -271,17 +291,23 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
     }
   };
   
-  private final ElementHandler REVISION_TEXT_HANDLER = new StringElementHandler() {
-    void endElement(String value) throws WikipediaExportException {
-      revisionMetadata.setTextSize(value.length());
-      List<CharSequence> wikilinks = WikilinksExtractor.extractWikilinks(value);
-      for (CharSequence wikilink : wikilinks) {
-        onRevisionWikilink(pageMetadata, revisionMetadata,
-            new RevisionWikilink(pageMetadata.getPageId(),
-                                  revisionMetadata.getRevisionId(),
-                                  revisionMetadata.getTimestamp(),
-                                  wikilink));
+  private final ElementHandler REVISION_TEXT_HANDLER = new ElementHandler() {
+    void startElement(String uri, String localName, String qName, Attributes attributes)
+        throws WikipediaExportException {
+      String bytesAttribute = attributes.getValue("bytes");
+      if (bytesAttribute != null) {
+        revisionMetadata.setTextSize(Long.valueOf(bytesAttribute));
       }
+      initializeElementTextBuffer();
+      revisionText = new WikipediaRevisionText();
+      startRevisionText(revisionText);
+    }
+    void endElement(String uri, String localName, String qName)
+        throws WikipediaExportException {
+      revisionText.setRevisionId(revisionMetadata.getId());
+      revisionText.setText(readElementTextBuffer());
+      endRevisionText();
+      revisionText = null;
     }
   };
   
@@ -299,7 +325,7 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   
   private final ElementHandler CONTRIBUTOR_USER_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
-      revisionMetadata.setContributorUserId(value);
+      revisionMetadata.setContributorId(value);
     }
   };
   
@@ -323,15 +349,15 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
                   .put(REVISION, ID, REVISION_ID_HANDLER)
                   .put(REVISION, PARENT_ID, REVISION_PARENT_ID_HANDLER)
                   .put(REVISION, TIMESTAMP, REVISION_TIMESTAMP_HANDLER)
+                      .put(CONTRIBUTOR, IP, CONTRIBUTOR_IP_HANDLER)
+                      .put(CONTRIBUTOR, ID, CONTRIBUTOR_USER_ID_HANDLER)
+                      .put(CONTRIBUTOR, USERNAME, CONTRIBUTOR_USERNAME_HANDLER)
                   .put(REVISION, MINOR, REVISION_MINOR_HANDLER)
                   .put(REVISION, COMMENT, REVISION_COMMENT_HANDLER)
                   .put(REVISION, MODEL, REVISION_MODEL_HANDLER)
                   .put(REVISION, FORMAT, REVISION_FORMAT_HANDLER)
                   .put(REVISION, TEXT, REVISION_TEXT_HANDLER)
                   .put(REVISION, SHA1, REVISION_SHA1_HANDLER)
-                      .put(CONTRIBUTOR, IP, CONTRIBUTOR_IP_HANDLER)
-                      .put(CONTRIBUTOR, ID, CONTRIBUTOR_USER_ID_HANDLER)
-                      .put(CONTRIBUTOR, USERNAME, CONTRIBUTOR_USERNAME_HANDLER)
           .build();
 
   /**
@@ -341,8 +367,8 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   public void startDocument() throws SAXException {
     try {
       elementStack = new ElementStack();
-      onStartDocument();
-      logStartDocument();
+      startExport();
+      logStartExport();
     } catch (WikipediaExportException e) {
       throw new SAXException(e);
     }
@@ -352,8 +378,8 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   public void endDocument() throws SAXException {
     try {
       elementStack = null;
-      onEndDocument();
-      logEndDocument();
+      endExport();
+      logEndExport();
     } catch (WikipediaExportException e) {
       throw new SAXException(e);
     }
@@ -397,23 +423,23 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
   /**
    * Logging.
    */
-  private void logStartDocument() {
+  private void logStartExport() {
     logger.info("Parsing of Wikipedia XML started.");
   }
 
-  private void logPageEvent() {
-    ++pageNumber;
-    logger.debug("Opening page number: " + pageNumber);
-  }
-
-  private void logRevisionEvent() {
-    ++revisionNumber;
-    logger.debug("Opening revision number: " + revisionNumber);
-  }
-
-  private void logEndDocument() {
+  private void logEndExport() {
     logger.info("Parsing of Wikipedia XML finished successfully.");
     logger.info("Number of pages: " + pageNumber);
     logger.info("Number of revisions: " + revisionNumber);
+  }
+
+  private void logPageComplete() {
+    ++pageNumber;
+    logger.debug("Completed page number: " + pageNumber);
+  }
+
+  private void logRevisionComplete() {
+    ++revisionNumber;
+    logger.debug("Completed revision number: " + revisionNumber);
   }
 }

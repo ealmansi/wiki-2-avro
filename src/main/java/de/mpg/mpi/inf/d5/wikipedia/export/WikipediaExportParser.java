@@ -19,7 +19,7 @@ public class WikipediaExportParser {
       SAXParser saxParser = factory.newSAXParser();
       saxParser.parse(inputSource, wikipediaExportHandler);
     } catch (SAXException | ParserConfigurationException | IOException e) {
-      throw new WikipediaExportException("Parsing Wikipedia XML failed.", e);
+      throw new WikipediaExportException("Parsing of Wikipedia XML failed.", e);
     }
   }
 }

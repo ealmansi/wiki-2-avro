@@ -12,13 +12,33 @@ import java.io.InputStreamReader;
  */
 public class WikipediaExportParserTest {
   @Test
-  public void testWikipediaExportParser() throws WikipediaExportException {
-    InputSource inputSource = getInputSourceFromFile("/wikipedia_export_parser_test.xml");
+  public void testPagesMetaHistory() throws WikipediaExportException {
+    InputSource inputSource = getInputSourceFromFile("/pages_meta_history_sample.xml");
     WikipediaExportTestHandler testHandler = new WikipediaExportTestHandler();
     WikipediaExportParser.parse(inputSource, testHandler);
     Assert.assertEquals(3, testHandler.getPageMetadataList().size());
     Assert.assertEquals(7, testHandler.getRevisionMetadataList().size());
-    Assert.assertEquals(28, testHandler.getRevisionWikilinksList().size());
+    Assert.assertEquals(7, testHandler.getRevisionTextsList().size());
+  }
+
+  @Test
+  public void testPagesMetaCurrent() throws WikipediaExportException {
+    InputSource inputSource = getInputSourceFromFile("/pages_meta_current_sample.xml");
+    WikipediaExportTestHandler testHandler = new WikipediaExportTestHandler();
+    WikipediaExportParser.parse(inputSource, testHandler);
+    Assert.assertEquals(19, testHandler.getPageMetadataList().size());
+    Assert.assertEquals(19, testHandler.getRevisionMetadataList().size());
+    Assert.assertEquals(19, testHandler.getRevisionTextsList().size());
+  }
+
+  @Test
+  public void testStubMetaHistory() throws WikipediaExportException {
+    InputSource inputSource = getInputSourceFromFile("/stub_meta_history_sample.xml");
+    WikipediaExportTestHandler testHandler = new WikipediaExportTestHandler();
+    WikipediaExportParser.parse(inputSource, testHandler);
+    Assert.assertEquals(9, testHandler.getPageMetadataList().size());
+    Assert.assertEquals(16, testHandler.getRevisionMetadataList().size());
+    Assert.assertEquals(16, testHandler.getRevisionTextsList().size());
   }
 
   private InputSource getInputSourceFromFile(String file) {
