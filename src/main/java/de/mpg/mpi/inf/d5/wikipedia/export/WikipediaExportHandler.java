@@ -203,25 +203,25 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
       logPageComplete();
     }
   };
-  
+
   private final ElementHandler PAGE_TITLE_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       pageMetadata.setTitle(value);
     }
   };
-  
+
   private final ElementHandler PAGE_NAMESPACE_HANDLER = new IntegerElementHandler() {
     void endElement(Integer value) throws WikipediaExportException {
       pageMetadata.setNs(value);
     }
   };
-  
+
   private final ElementHandler PAGE_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
       pageMetadata.setId(value);
     }
   };
-  
+
   private final ElementHandler PAGE_REDIRECT_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
@@ -234,7 +234,7 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
         throws WikipediaExportException {
     }
   };
-  
+
   private final ElementHandler REVISION_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
@@ -248,49 +248,49 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
       logRevisionComplete();
     }
   };
-  
+
   private final ElementHandler REVISION_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
       revisionMetadata.setId(value);
     }
   };
-  
+
   private final ElementHandler REVISION_PARENT_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
       revisionMetadata.setParentId(value);
     }
   };
-  
+
   private final ElementHandler REVISION_TIMESTAMP_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setTimestamp(value);
     }
   };
-  
+
   private final ElementHandler REVISION_MINOR_HANDLER = new BooleanElementHandler() {
     void endElement() throws WikipediaExportException {
       revisionMetadata.setMinor(true);
     }
   };
-  
+
   private final ElementHandler REVISION_COMMENT_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setComment(value);
     }
   };
-  
+
   private final ElementHandler REVISION_MODEL_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setModel(value);
     }
   };
-  
+
   private final ElementHandler REVISION_FORMAT_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setFormat(value);
     }
   };
-  
+
   private final ElementHandler REVISION_TEXT_HANDLER = new ElementHandler() {
     void startElement(String uri, String localName, String qName, Attributes attributes)
         throws WikipediaExportException {
@@ -310,25 +310,25 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
       revisionText = null;
     }
   };
-  
+
   private final ElementHandler REVISION_SHA1_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setSha1(value);
     }
   };
-  
+
   private final ElementHandler CONTRIBUTOR_IP_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setContributorIp(value);
     }
   };
-  
+
   private final ElementHandler CONTRIBUTOR_USER_ID_HANDLER = new LongElementHandler() {
     void endElement(Long value) throws WikipediaExportException {
       revisionMetadata.setContributorId(value);
     }
   };
-  
+
   private final ElementHandler CONTRIBUTOR_USERNAME_HANDLER = new StringElementHandler() {
     void endElement(String value) throws WikipediaExportException {
       revisionMetadata.setContributorUsername(value);
@@ -392,7 +392,7 @@ public abstract class WikipediaExportHandler extends DefaultHandler {
     ElementHandler elementHandler = ELEMENT_HANDLERS.get(elementStack.getParentElement(), qName);
     if (elementHandler != null) {
       try {
-          elementHandler.startElement(uri, localName, qName, attributes);
+        elementHandler.startElement(uri, localName, qName, attributes);
       } catch (WikipediaExportException e) {
         throw new SAXException(e);
       }
