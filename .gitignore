@@ -20,3 +20,6 @@ target/
 # Sublime
 *.sublime-project
 *.sublime-workspace
+
+# Local files.
+local/
